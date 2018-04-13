@@ -4,7 +4,6 @@ function Environment(bg_skin_src, clouds_src) {
 
     this.cloud_skin = new Image();
     this.cloud_skin.src = clouds_src;
-
     this.speed = 0.3;
     this.x = 0;
     this.y = 0; 

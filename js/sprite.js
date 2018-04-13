@@ -30,7 +30,7 @@ function Sprite(){
   }
 
 
-  this.draw = function(ctx, x, y){
+  this.draw = function(ctx, x, y,scale){
     // Use time based animation to draw only a few images per second
     var now = performance.now();
     var delta = now - this.then;
@@ -38,7 +38,7 @@ function Sprite(){
     // draw currentSpriteImage
     var current_sprite_image = this.sprite_array[this.current_frame];
     // x, y, scale. 1 = size unchanged
-    current_sprite_image.draw(ctx, x, y, 1);
+    current_sprite_image.draw(ctx, x, y, scale);
     
     // if the delay between images is elapsed, go to the next one
     if (this.totalTimeSinceLastRedraw > this.delay_between_frames) {

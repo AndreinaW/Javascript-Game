@@ -31,7 +31,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 1);
+        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 3/4);
         ctx.restore();
     }
 
