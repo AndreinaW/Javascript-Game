@@ -7,10 +7,6 @@ let PLAYER_SPRITESHEET_URL = "images/boy_sprite.png";
 let canvas, ctx, player;
 
 
-let inputStates = {};
-
-
-
 function init() {
     console.log("page loaded");
 
@@ -20,7 +16,6 @@ function init() {
     environment = new Environment(BCKGRD__URL, CLOUDS_URL);
 
     player = new Player(PLAYER_SPRITESHEET_URL, canvas.width/2, canvas.height/2);
-
     player.spritesheet.onload = function() {
         player.initSprites();
         requestAnimationFrame(animation);
@@ -34,6 +29,7 @@ function animation() {
     testCollisions();
     requestAnimationFrame(animation);
 }
+
 
 function moveAndDrawAllObjects() {
     environment.move();

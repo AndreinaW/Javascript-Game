@@ -13,9 +13,9 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.move_speed = 5;
     this.on_the_ground = false;
     this.jumped = false;
-    this.jump_speed =40;    
-    this.currentDirection = 2;
-
+    this.jump_speed = 10; 
+    this.move_dir = {};
+    
 
     // Sprites attributes
     this.sprite_left = 1;   //row of spritesheet
@@ -26,48 +26,44 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.sprites = [];
     this.spritesheet = new Image();
     this.spritesheet.src = spritesheetSrc;
+    this.current_sprite = this.sprite_front;
     
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[this.currentDirection].draw(ctx, this.pos_x, this.pos_y, 1);
+        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 1);
         ctx.restore();
     }
 
 
-    // REVISAR
-    this.move = function() {
+    this.move = function() 
+    {    
+        // default. He is always falling
         this.speedX = 0;
-        this.speedY += 2;
+        this.speedY += 2;//this.move_speed;    
+        this.current_sprite = this.sprite_front;
 
-        this.speedY = Math.min(this.speedY,10);
-        
-        this.currentDirection = this.sprite_front;
-
-        if (inputStates.left) {
+        if (this.move_dir.left) {
             this.speedX = -this.move_speed;
-            this.currentDirection = this.sprite_left;
+            this.current_sprite = this.sprite_left;
         }
-        else if (inputStates.right) {
+        if (this.move_dir.right) {
             this.speedX = this.move_speed;
-            this.currentDirection = this.sprite_right;
+            this.current_sprite = this.sprite_right;
         }
-        else if (inputStates.up) {
-            //this.pos_y-= 50;
-            this.currentDirection = this.sprite_up;
+        if (this.move_dir.up) {
+            this.speedY  = -this.jump_speed;
+            this.current_sprite = this.sprite_up;
         }
-
+        
         this.pos_x += this.speedX;
         this.pos_y += this.speedY ;
 
-        if(this.speedY > 0){
+        /*if(this.speedY > 0){
             this.speedY = 0;
             this.on_the_ground = true;
             this.jumped = false;            
-        }
-        else if(this.speedY < 0){
-            this.speedY = 0;
-        }
+        }*/
     }
 
 
