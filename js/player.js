@@ -1,37 +1,60 @@
-class Player{
-    constructor(skins,width,heigth,pos_x,pos_y){
-        this.skins = skins;
-        this.width = width;
-        //for precise, because character is a little bit smaller then the image PNG
-        //for width and posX +-15
-        this.height = heigth;
-        this.pos_x = pos_x;
-        this.pos_y = pos_y;
-        this.speedX = 0;
-        this.speedY = 0;
-        this.on_the_ground = false;
-        this.jumped = false;
-        this.jump_speed =40;
-        this.moove_speed =5;
+function Player(spritesheetSrc, pos_x, pos_y) {
+    let SPRITE_WIDTH = 64;
+    let SPRITE_HEIGHT = 64;
+    let NB_POSTURES = 4;
+    let NB_FRAMES_PER_POSTURE = 9;
+
+    this.pos_x = pos_x;
+    this.pos_y = pos_y;
+    this.width = SPRITE_WIDTH;
+    this.height = SPRITE_HEIGHT;
+    this.speedX = 0;
+    this.speedY = 0;
+    this.move_speed = 5;
+    this.on_the_ground = false;
+    this.jumped = false;
+    this.jump_speed =40;    
+    this.currentDirection = 2;
+
+
+    // Sprites attributes
+    this.sprite_left = 1;   //row of spritesheet
+    this.sprite_right = 3;  //row of spritesheet
+    this.sprite_up = 0;
+    this.sprite_front = 2;
+
+    this.sprites = [];
+    this.spritesheet = new Image();
+    this.spritesheet.src = spritesheetSrc;
+    
+
+    this.draw = function(ctx) {
+        ctx.save();
+        this.sprites[this.currentDirection].draw(ctx, this.pos_x, this.pos_y, 1);
+        ctx.restore();
     }
-    draw(){
-    // check inputStates
+
+
+    // REVISAR
+    this.move = function() {
         this.speedX = 0;
-        this.speedY +=2;
-        var last_pos_y = this.pos_y;
-        this.speedY=Math.min(this.speedY,10);
-        currentDirection = DIR_FRONT;
+        this.speedY += 2;
+
+        this.speedY = Math.min(this.speedY,10);
+        
+        this.currentDirection = this.sprite_front;
+
         if (inputStates.left) {
-            this.speedX = -this.moove_speed;
-            currentDirection = DIR_LEFT;
+            this.speedX = -this.move_speed;
+            this.currentDirection = this.sprite_left;
         }
-        if (inputStates.right) {
-            this.speedX = this.moove_speed;
-            currentDirection = DIR_RIGHT;
+        else if (inputStates.right) {
+            this.speedX = this.move_speed;
+            this.currentDirection = this.sprite_right;
         }
-        if (inputStates.up) {
+        else if (inputStates.up) {
             //this.pos_y-= 50;
-            currentDirection = DIR_UP;
+            this.currentDirection = this.sprite_up;
         }
 
         this.pos_x += this.speedX;
@@ -40,17 +63,21 @@ class Player{
         if(this.speedY > 0){
             this.speedY = 0;
             this.on_the_ground = true;
-            if(this.jumped){
-                this.jumped = false;
-            }
+            this.jumped = false;            
         }
-        if(this.speedY < 0){
-
+        else if(this.speedY < 0){
             this.speedY = 0;
         }
+    }
 
 
-        player_skins[currentDirection].draw(ctx_interface, this.pos_x, this.pos_y, 1);
-    
+    this.initSprites = function() {   
+        // sprite extraction
+        for(let i = 0; i < NB_POSTURES ; i++){
+            sprite = new Sprite();
+            sprite.extractSprites(this.spritesheet, NB_POSTURES, (i+1), NB_FRAMES_PER_POSTURE, SPRITE_WIDTH, SPRITE_HEIGHT);
+            sprite.setNbImagesPerSecond(20);
+            this.sprites[i] = sprite;
+        }
     }
 }

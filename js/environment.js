@@ -1,32 +1,29 @@
+function Environment(bg_skin_src, clouds_src) {
+    this.bg_skin = new Image();
+    this.bg_skin.src = bg_skin_src;
 
-class Environment {
-    constructor(bg_skin_src,clouds_src) {
-        this.bg_skin = new Image();
-        this.bg_skin.src = bg_skin_src;
+    this.cloud_skin = new Image();
+    this.cloud_skin.src = clouds_src;
 
-        this.cloud_skin = new Image();
-        this.cloud_skin.src = clouds_src;
-
-        this.speed = 0.3;
-        this.x = 0;
-        this.y = 0;
+    this.speed = 0.3;
+    this.x = 0;
+    this.y = 0; 
         
-    }
-    draw(ctx_interface) {
-            ctx_interface.save();
-            ctx_interface.drawImage(this.bg_skin,0,0,canvas_interface.width,canvas_interface.height);
 
-            ctx_interface.drawImage(this.cloud_skin,this.x-canvas_interface.width/2,this.y,canvas_interface.width/2,canvas_interface.height/2);
-            ctx_interface.drawImage(this.cloud_skin,this.x-canvas_interface.width - canvas_interface.width/2,this.y,canvas_interface.width,canvas_interface.height);
-            ctx_interface.restore();
+    this.draw = function(ctx) {
+        ctx.save();
+        ctx.drawImage(this.bg_skin,0,0,canvas.width,canvas.height);
+
+        ctx.drawImage(this.cloud_skin,this.x-canvas.width/2,this.y,canvas.width/2,canvas.height/2);
+        ctx.drawImage(this.cloud_skin,this.x-canvas.width - canvas.width/2,this.y,canvas.width,canvas.height);
+        ctx.restore();
     }
-    move(){
+    
+
+    this.move = function(){
         this.x +=this.speed;
-            if (this.x >= canvas_interface.width*2+canvas_interface.width/2 ){
+            if (this.x >= canvas.width*2+canvas.width/2 ){
             this.x = 0;
         }
     }
-  }
-
-  
-  //QWEqwe!23
+}
