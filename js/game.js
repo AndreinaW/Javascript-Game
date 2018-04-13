@@ -5,10 +5,11 @@ let CLOUDS_URL = "images/cloud.png";
 let PLAYER_SPRITESHEET_URL = "images/boy_sprite.png";
 
 let canvas, ctx, player;
-
-
+//LEVEL NUMBER
+let lvl = 0;
+let platforms = [];
 let inputStates = {};
-
+let level_settings;
 
 
 function init() {
@@ -19,8 +20,13 @@ function init() {
 
     environment = new Environment(BCKGRD__URL, CLOUDS_URL);
 
-    player = new Player(PLAYER_SPRITESHEET_URL, canvas.width/2, canvas.height/2);
+    $.getJSON('js/levels_settings.json').done(function (data) {
+        data.levels[lvl].bricks.forEach(brick => {
+            platforms.push(new Platform(brick.posX,brick.posY,brick.width,brick.height,brick.type));
+        });
+    });
 
+    player = new Player(PLAYER_SPRITESHEET_URL, canvas.width/2, canvas.height/2);
     player.spritesheet.onload = function() {
         player.initSprites();
         requestAnimationFrame(animation);
@@ -38,7 +44,9 @@ function animation() {
 function moveAndDrawAllObjects() {
     environment.move();
     environment.draw(ctx);
-
+    platforms.forEach(platform => {
+        platform.draw(ctx);
+    });
     player.move();
     player.draw(ctx);    
 }
