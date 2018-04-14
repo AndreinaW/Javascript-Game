@@ -58,7 +58,6 @@ function moveAndDrawAllObjects() {
         platform.draw(ctx);
     });
 
-
     enemies.forEach((enemy) => {
         enemy.move();
         enemy.draw(ctx);        
