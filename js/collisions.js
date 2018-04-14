@@ -60,8 +60,9 @@ function testWallCollisionsPlayer(player) {
         player.pos_y = 0;
     }
 }
-function testCollisionsPlatforms(r, platforms){
 
+
+function testCollisionsPlatforms(r, platforms){
     platforms.forEach(platform => {
 
         if(r.pos_x + extra_sprite_space_right > platform.posX &&
