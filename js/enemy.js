@@ -8,9 +8,10 @@ function Enemy(spritesheetSrc, pos_x, pos_y) {
     this.pos_y = pos_y;
     this.width = SPRITE_WIDTH;
     this.height = SPRITE_HEIGHT;
-    this.speedX = 0;
+    this.move_speed = 1;
+    this.speedX = this.move_speed;
     this.speedY = 0;
-    this.move_speed = 3;
+    this.live = 2;
     
 
     // Sprites attributes
@@ -27,7 +28,7 @@ function Enemy(spritesheetSrc, pos_x, pos_y) {
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 3/4);
+        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 1);
         ctx.restore();
     }
 
@@ -35,6 +36,12 @@ function Enemy(spritesheetSrc, pos_x, pos_y) {
     this.move = function() {            
         this.pos_x += this.speedX;
         this.pos_y += this.speedY;
+
+        if(this.speedX > 0){
+            this.current_sprite = this.sprite_right;
+        } else {
+            this.current_sprite = this.sprite_left;
+        }
     }
 
 

@@ -10,6 +10,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.height = SPRITE_HEIGHT;
     this.speedX = 0;
     this.speedY = 0;
+    this.live = 3;
     this.move_speed = 5;
     this.on_the_ground = false;
     this.jumped = false;

@@ -6,26 +6,27 @@ let extra_sprite_space_down  =15;
 
 function testCollisions() {
     testWallCollisionsPlayer(player);
+    testWallCollisions(enemy);
     testCollisionsPlatforms(player,platforms);
 }
 
 
 function testWallCollisions(r) {
     // right wall
-    if((r.pos_x + r.width - extra_sprite_space_right) > canvas.width) {
+    if((r.pos_x + r.width) > canvas.width) {
         r.speedX = -r.speedX;
-        r.pos_x = canvas.width - r.width + extra_sprite_space_right;
+        r.pos_x = canvas.width - r.width;
     }
     // left wall
-    else if((r.pos_x + extra_sprite_space_left) < 0){
+    else if((r.pos_x) < 0){
         r.speedX = -r.speedX;
-        r.pos_x = -extra_sprite_space_left;
+        r.pos_x = 0;
     }
 
     // down wall
-    if((r.pos_y + r.height -extra_sprite_space_down) > canvas.height) {
+    if((r.pos_y + r.height) > canvas.height) {
         r.speedY = -r.speedY;
-        r.pos_y = canvas.height - r.height +extra_sprite_space_down;
+        r.pos_y = canvas.height - r.height;
     }
     // up wall
     else if(r.pos_y < 0){
