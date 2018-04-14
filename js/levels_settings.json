@@ -117,6 +117,23 @@
                 "type" : "custom_1",
                 "src" : "images/brick_custom_1.png"
             }
+            ],
+            "allEnemies" : [
+                {
+                    "posX" : 0,
+                    "posY" : 0,
+                    "src" :"images/enemy_1.png"
+                },
+                {
+                    "posX" : 0,
+                    "posY" : 200,
+                    "src" :"images/enemy_2.png"
+                },
+                {
+                    "posX" : 0,
+                    "posY" : 320,
+                    "src" :"images/enemy_1.png"
+                }
             ]
         },
         {
