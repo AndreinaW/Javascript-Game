@@ -6,7 +6,7 @@ let extra_sprite_space_down  =15;
 
 function testCollisions() {
     testWallCollisionsPlayer(player);
-    testWallCollisionsEnemies(enemy);
+    testWallCollisionsEnemies();
     testCollisionPlayerEnemies(player, enemies);
     testCollisionsPlatforms(player,platforms);
 }
