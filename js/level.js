@@ -2,7 +2,7 @@ function Level(environment) {
     this.environment = environment;
     this.platforms = [];
     this.enemies = [];
-    //this.isLevelComplete = false;
+    this.coins = [];
 
 
     this.addPlatform = function(p) {
@@ -11,6 +11,10 @@ function Level(environment) {
 
     this.addEnemy = function(e) {
         this.enemies.push(e);
+    }
+
+    this.addCoins = function(c) {
+        this.coins.push(c);
     }
 
 
@@ -26,6 +30,12 @@ function Level(environment) {
             enemy.move();
             enemy.draw(ctx);  
         });
+
+        // TODO: move and draw coins
         ctx.restore();
+    }
+
+    this.isLevelCompleted = function() {
+        return this.coins.length === 0;
     }
 }

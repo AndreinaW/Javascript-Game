@@ -1,7 +1,7 @@
 // IF THIS HAPPENSE WITH THE ENEMIES IT SHOULD BE CHANGED AND PUT AS AN ATTRIBUTE OF THE CLASS
 let extra_sprite_space_right= 27;
 let extra_sprite_space_left = 13;
-let extra_sprite_space_down  =15;
+let extra_sprite_space_down = 12;
 
 
 function testCollisions() {
@@ -59,7 +59,7 @@ function testWallCollisionsPlayer(player) {
     // down wall
     if((player.pos_y + player.height -extra_sprite_space_down) > canvas.height) {
         player.speedY = 0;
-        player.pos_y = canvas.height - player.height+extra_sprite_space_down;
+        player.pos_y = canvas.height - player.height + extra_sprite_space_down;
         player.on_the_ground = true;
         player.jumped = false;    
     }

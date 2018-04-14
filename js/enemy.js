@@ -54,4 +54,14 @@ function Enemy(spritesheetSrc, pos_x, pos_y) {
             this.sprites[i] = sprite;
         }
     }
+
+
+    this.decreaseLive = function() {
+        this.live--;
+    }
+
+
+    this.isDead = function() {
+        return this.live === 0;
+    }
 }

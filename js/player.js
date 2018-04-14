@@ -11,10 +11,10 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.speedX = 0;
     this.speedY = 0;
     this.live = 3;
-    this.move_speed = 5;
+    this.move_speed = 4;
     this.on_the_ground = false;
     this.jumped = false;
-    this.jump_speed = 5; 
+    this.jump_speed = 10; 
     this.move_dir = {};
     
 
@@ -44,7 +44,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         this.speedY += 1;
         this.current_sprite = this.sprite_front;
 
-        this.speedY = Math.min(this.speedY, this.move_speed);   // to make the descent slower
+        this.speedY = Math.min(this.speedY, 2*this.move_speed);   // to make the descent slower
 
         if (this.move_dir.left) {
             this.speedX = -this.move_speed;
@@ -77,5 +77,15 @@ function Player(spritesheetSrc, pos_x, pos_y) {
             sprite.setNbImagesPerSecond(10);
             this.sprites[i] = sprite;
         }
+    }
+
+
+    this.decreaseLive = function() {
+        this.live--;
+    }
+
+
+    this.isDead = function() {
+        return this.live === 0;
     }
 }
