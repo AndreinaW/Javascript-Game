@@ -33,7 +33,7 @@
 }
 
 #gameScreen {
-	display: none;
+	/*display: none;*/
   background-color:#e5e5e5;
   padding: 10px;
   padding-bottom: 6px;
@@ -46,7 +46,8 @@
 
 #startScreen{
 	height: 420pt;
-	display: flex;
+	/*display: flex;*/
+	display: none;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;

@@ -3,6 +3,7 @@
     [
         {
             "lvl" : 1,
+            "bckgd_src" : "images/bg_lvl_1.png",
             "bricks":
             [
             {
@@ -120,8 +121,8 @@
             ],
             "allEnemies" : [
                 {
-                    "posX" : 0,
-                    "posY" : 0,
+                    "posX" : 100,
+                    "posY" : 350,
                     "src" :"images/enemy_1.png"
                 },
                 {
@@ -138,6 +139,7 @@
         },
         {
             "lvl" :2,
+            "bckgd_src" : "images/bg_lvl_1.png",
             "bricks":
             [
                 {
@@ -157,6 +159,23 @@
                     "src" : "images/brick_custom_2.png"
                 }
 
+            ],
+            "allEnemies" : [
+                {
+                    "posX" : 100,
+                    "posY" : 350,
+                    "src" :"images/enemy_1.png"
+                },
+                {
+                    "posX" : 200,
+                    "posY" : 200,
+                    "src" :"images/enemy_2.png"
+                },
+                {
+                    "posX" : 320,
+                    "posY" : 320,
+                    "src" :"images/enemy_3.png"
+                }
             ]
         }
     ]

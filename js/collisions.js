@@ -6,9 +6,9 @@ let extra_sprite_space_down  =15;
 
 function testCollisions() {
     testWallCollisionsPlayer(player);
-    testWallCollisionsEnemies();
-    testCollisionPlayerEnemies(player, enemies);
-    testCollisionsPlatforms(player,platforms);
+    testWallCollisionsEnemies(getCurrentLevel().enemies);
+    testCollisionPlayerEnemies(player, getCurrentLevel().enemies);
+    testCollisionsPlatforms(player, getCurrentLevel().platforms);
 }
 
 
@@ -37,7 +37,7 @@ function testWallCollisions(r) {
 }
 
 
-function testWallCollisionsEnemies() {
+function testWallCollisionsEnemies(enemies) {
     enemies.forEach((enemy) => {
         testWallCollisions(enemy);
     });   
