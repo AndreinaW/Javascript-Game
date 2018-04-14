@@ -6,6 +6,7 @@ let extra_sprite_space_down  =15;
 
 function testCollisions() {
     testWallCollisionsPlayer(player);
+    testCollisionsPlatforms(player,platforms);
 }
 
 
@@ -58,4 +59,23 @@ function testWallCollisionsPlayer(player) {
         player.speedY = 0;
         player.pos_y = 0;
     }
+}
+function testCollisionsPlatforms(r, platforms){
+
+    platforms.forEach(platform => {
+
+        if(r.pos_x + extra_sprite_space_right > platform.posX &&
+            (r.pos_x + extra_sprite_space_left < platform.posX + platform.width )&&
+            ((r.pos_y + r.height - extra_sprite_space_down) > platform.posY)){
+                //r.pos_y = platform.posY - r.height +extra_sprite_space_down;
+                if((r.pos_y + extra_sprite_space_down) < platform.posY)
+                {
+                    r.speedY = 0;
+                    r.speedY = -r.speedY;
+                    r.pos_y = platform.posY - r.height + extra_sprite_space_down;
+                    player.on_the_ground = true;
+                    player.jumped = false;    
+                }
+            }
+    });
 }
