@@ -1,3 +1,8 @@
+/*document.querySelector("#buttonStart").addEventListener('click', function(event) {
+    canvas.style =  "display: inline;";
+});*/
+
+
 // Add the listener to the main, window object, and update the states
 window.addEventListener('keydown', function(event) {
   let code = event.keyCode;
