@@ -22,7 +22,7 @@ function init() {
 
     $.getJSON('js/levels_settings.json').done(function (data) {
         data.levels[lvl].bricks.forEach(brick => {
-            platforms.push(new Platform(brick.posX,brick.posY,brick.width,brick.height,brick.type));
+            platforms.push(new Platform(brick.posX, brick.posY, brick.width, brick.height, brick.type, brick.src));
         });
     });
 

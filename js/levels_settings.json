@@ -10,14 +10,16 @@
                 "posY" : 380,
                 "width" : 100,
                 "height" : 20,
-                "type" : "custom_1"
+                "type" : "custom_1",
+                "src" : "images/brick_custom_1.png"
             },
             {   
                 "posX" : 100,
                 "posY" : 100,
                 "width" : 100,
                 "height" : 20,
-                "type" : "custom_1"
+                "type" : "custom_1",
+                "src" : "images/brick_custom_1.png"
             }
             ]
         },
@@ -30,14 +32,16 @@
                     "posY" : 0,
                     "width" : 100,
                     "height" : 20,
-                    "type" : "custom_2"
+                    "type" : "custom_2",
+                    "src" : "images/brick_custom_2.png"
                 },
                 {   
                     "posX" : 100,
                     "posY" : 100,
                     "width" : 100,
                     "height" : 20,
-                    "type" : "custom_2"
+                    "type" : "custom_2",
+                    "src" : "images/brick_custom_2.png"
                 }
 
             ]
