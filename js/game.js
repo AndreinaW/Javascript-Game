@@ -4,7 +4,9 @@ let BCKGRD__URL = "images/bg_lvl_1.png";
 let CLOUDS_URL = "images/cloud.png";
 let PLAYER_SPRITESHEET_URL = "images/boy_sprite.png";
 
-let canvas, ctx, player, enemy;
+let canvas, ctx, player;
+let enemies = [];
+
 
 //LEVEL NUMBER
 let lvl = 0;
@@ -26,18 +28,18 @@ function init() {
         });
     });
 
-
     player = new Player(PLAYER_SPRITESHEET_URL, canvas.width/2, canvas.height/2);
     player.spritesheet.onload = function() {
         player.initSprites();
         requestAnimationFrame(animation);
     };
 
-    enemy = new Enemy(PLAYER_SPRITESHEET_URL, 100, 100);
+    enemy = new Enemy(PLAYER_SPRITESHEET_URL, 100, canvas.height);
     enemy.spritesheet.onload = function() {
         enemy.initSprites();
         requestAnimationFrame(animation);
     };
+    enemies.push(enemy);
 }
 
 
@@ -55,9 +57,13 @@ function moveAndDrawAllObjects() {
     platforms.forEach(platform => {
         platform.draw(ctx);
     });
+
+
+    enemies.forEach((enemy) => {
+        enemy.move();
+        enemy.draw(ctx);        
+    });
+
     player.move();
     player.draw(ctx);    
-
-    enemy.move();
-    enemy.draw(ctx);
 }

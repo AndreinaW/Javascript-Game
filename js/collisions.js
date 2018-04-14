@@ -6,7 +6,8 @@ let extra_sprite_space_down  =15;
 
 function testCollisions() {
     testWallCollisionsPlayer(player);
-    testWallCollisions(enemy);
+    testWallCollisionsEnemies(enemy);
+    testCollisionPlayerEnemies(player, enemies);
     testCollisionsPlatforms(player,platforms);
 }
 
@@ -33,6 +34,13 @@ function testWallCollisions(r) {
         r.speedY = -r.speedY;
         r.pos_y = 0;
     }
+}
+
+
+function testWallCollisionsEnemies() {
+    enemies.forEach((enemy) => {
+        testWallCollisions(enemy);
+    });   
 }
 
 
@@ -80,4 +88,32 @@ function testCollisionsPlatforms(r, platforms){
                 }
             }
     });
+}
+
+
+
+
+
+
+
+function testCollisionPlayerEnemies(player, enemies) {
+    enemies.forEach((enemy) => {
+        if(rectsOverlap(player.pos_x, player.pos_y, player.width, player.height,
+                        enemy.pos_x, enemy.pos_y, enemy.width, enemy.height)) {
+            console.log("colision");
+            //player.sprites[player.current_sprite].style.filter = "grayscale(100%)";
+        }      
+    });
+}
+
+
+// Collisions between aligned rectangles
+// dans collision.js
+function rectsOverlap(x1, y1, w1, h1, x2, y2, w2, h2) {
+    if ((x1 > (x2 + w2)) || ((x1 + w1) < x2))
+        return false; // No horizontal axis projection overlap
+    if ((y1 > (y2 + h2)) || ((y1 + h1) < y2))
+        return false; // No vertical axis projection overlap
+    return true; // If previous tests failed, then both axis projections
+                // overlap and the rectangles intersect
 }

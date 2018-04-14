@@ -11,10 +11,10 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.speedX = 0;
     this.speedY = 0;
     this.live = 3;
-    this.move_speed = 5;
+    this.move_speed = 3;
     this.on_the_ground = false;
     this.jumped = false;
-    this.jump_speed = 15; 
+    this.jump_speed = 10; 
     this.move_dir = {};
     
 
@@ -41,10 +41,10 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     {    
         // default. He is always falling
         this.speedX = 0;
-        this.speedY += 2;
+        this.speedY += 1;
         this.current_sprite = this.sprite_front;
 
-        //this.speedY = Math.min(this.speedY, this.move_speed);   // to make the descent slower
+        this.speedY = Math.min(this.speedY, this.move_speed);   // to make the descent slower
 
         if (this.move_dir.left) {
             this.speedX = -this.move_speed;
@@ -62,6 +62,10 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         
         this.pos_x += this.speedX;
         this.pos_y += this.speedY;
+
+        /*if(this.speedY > 0) {
+            this.speedY = 0;
+        }*/
     }
 
 
