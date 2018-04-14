@@ -1,6 +1,11 @@
-/*document.querySelector("#buttonStart").addEventListener('click', function(event) {
-    canvas.style =  "display: inline;";
-});*/
+function addStartClickListener() {
+  document.querySelector("#buttonStart").addEventListener('click', function(event) {
+      console.log("emnte");
+      document.querySelector("#gameScreen").style =  "display: block;";
+      document.querySelector("#startScreen").style =  "display: none;";
+      startGame();
+  });
+}
 
 
 // Add the listener to the main, window object, and update the states

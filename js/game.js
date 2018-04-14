@@ -20,6 +20,7 @@ let level_settings;
 
 function init() {
     console.log("page loaded");
+    addStartClickListener();
 
     canvas = document.querySelector("#canvas");
     ctx = canvas.getContext("2d");
@@ -41,7 +42,6 @@ function init() {
             enemy.spritesheet.onload = function(){
                 enemy.initSprites();   
                 num_spritesheet_loaded++;
-                checkRequestAnimation();
             }
         });                      
     });
@@ -50,8 +50,14 @@ function init() {
     player.spritesheet.onload = function() {
         player.initSprites();      
         num_spritesheet_loaded++;
-        checkRequestAnimation();
     };
+}
+
+
+function startGame() {
+    if(num_spritesheet_loaded == num_spritesheet) {
+        requestAnimationFrame(animation);
+    }
 }
 
 
@@ -77,11 +83,4 @@ function moveAndDrawAllObjects() {
 
     player.move();
     player.draw(ctx);    
-}
-
-
-function checkRequestAnimation() {
-    if(num_spritesheet_loaded == num_spritesheet) {
-        requestAnimationFrame(animation);
-    }
 }
