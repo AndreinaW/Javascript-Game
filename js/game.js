@@ -1,6 +1,5 @@
 window.onload = init;
 
-let CLOUDS_URL = "images/cloud.png";
 let PLAYER_SPRITESHEET_URL = "images/player_skin.png";
 
 let canvas, ctx, player;
@@ -40,16 +39,17 @@ function loadLevels() {
     {
         let i = 0;
         data.levels.forEach(lvl => {
-            let level = new Level(new Environment(lvl.bckgd_src, CLOUDS_URL));
+            // load bacground
+            let level = new Level(new Environment(lvl.bckgd_type));
 
             // load bricks
             lvl.bricks.forEach(brick => {
-                level.addPlatform(new Platform(brick.posX, brick.posY, brick.width, brick.height, brick.type, brick.src));
+                level.addPlatform(new Platform(brick.type, brick.posX, brick.posY, brick.width, brick.height));
             });
 
             // load enemies
             lvl.allEnemies.forEach(enemy => {
-                level.addEnemy(new Enemy(enemy.src, enemy.posX, enemy.posY));           
+                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY));           
                 num_spritesheet++;
             });
 

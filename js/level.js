@@ -35,6 +35,7 @@ function Level(environment) {
         ctx.restore();
     }
 
+
     this.isLevelCompleted = function() {
         return this.coins.length === 0;
     }

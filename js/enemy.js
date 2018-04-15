@@ -1,4 +1,11 @@
-function Enemy(spritesheetSrc, pos_x, pos_y) {
+let ENEMIES_SRC = {
+    enemy_1: "images/enemy_1.png",
+    enemy_2: "images/enemy_2.png",
+    enemy_3: "images/enemy_3.png"
+}
+
+
+function Enemy(type, pos_x, pos_y) {
     let SPRITE_WIDTH = 48;
     let SPRITE_HEIGHT = 48;
     let NB_POSTURES = 4;
@@ -22,7 +29,7 @@ function Enemy(spritesheetSrc, pos_x, pos_y) {
 
     this.sprites = [];
     this.spritesheet = new Image();
-    this.spritesheet.src = spritesheetSrc;
+    this.spritesheet.src = ENEMIES_SRC[type];
     this.current_sprite = this.sprite_front;
     
 

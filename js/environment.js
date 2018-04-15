@@ -1,9 +1,15 @@
-function Environment(bg_skin_src, clouds_src) {
+let CLOUDS_SRC = "images/cloud.png";
+let BACKGROUND_SRC = {
+    bckgd_1: "images/bg_lvl_1.png"
+}
+
+
+function Environment(type) {
     this.bg_skin = new Image();
-    this.bg_skin.src = bg_skin_src;
+    this.bg_skin.src = BACKGROUND_SRC[type];
 
     this.cloud_skin = new Image();
-    this.cloud_skin.src = clouds_src;
+    this.cloud_skin.src = CLOUDS_SRC;
     this.speed = 0.3;
     this.x = 0;
     this.y = 0; 

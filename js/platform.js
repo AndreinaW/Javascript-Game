@@ -1,12 +1,16 @@
+let PLATFORMS_SRC = {
+    platform_1: "images/brick_custom_1.png",
+    platform_2: "images/brick_custom_2.png"
+}
+
 class Platform{
-    constructor(posX, posY, width, height, type, src){
+    constructor(type, posX, posY, width, height) {
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
-        this.type = type;
         this.platform_skin = new Image();
-        this.platform_skin.src = src;
+        this.platform_skin.src = PLATFORMS_SRC[type];
     }
 
 
