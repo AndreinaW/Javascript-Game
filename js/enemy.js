@@ -5,7 +5,7 @@ let ENEMIES_SRC = {
 }
 
 
-function Enemy(type, pos_x, pos_y) {
+function Enemy(type, pos_x, pos_y ,max_x) {
     let SPRITE_WIDTH = 48;
     let SPRITE_HEIGHT = 48;
     let NB_POSTURES = 4;
@@ -13,9 +13,11 @@ function Enemy(type, pos_x, pos_y) {
 
     this.pos_x = pos_x;
     this.pos_y = pos_y;
+    this.max_x = max_x;
+    this.min_x = pos_x;
     this.width = SPRITE_WIDTH;
     this.height = SPRITE_HEIGHT;
-    this.move_speed = 0.1;
+    this.move_speed = 2;
     this.speedX = this.move_speed;
     this.speedY = 0;
     this.live = 2;
@@ -35,12 +37,18 @@ function Enemy(type, pos_x, pos_y) {
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 1);
+        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 3/4);
         ctx.restore();
     }
 
 
-    this.move = function() {            
+    this.move = function() {
+        if(this.pos_x > this.max_x){
+            this.speedX = -this.speedX;
+        }  
+        else if(this.pos_x < this.min_x){
+            this.speedX = -this.speedX;
+        }        
         this.pos_x += this.speedX;
         this.pos_y += this.speedY;
 
@@ -57,7 +65,7 @@ function Enemy(type, pos_x, pos_y) {
         for(let i = 0; i < NB_POSTURES ; i++){
             sprite = new Sprite();
             sprite.extractSprites(this.spritesheet, NB_POSTURES, (i+1), NB_FRAMES_PER_POSTURE, SPRITE_WIDTH, SPRITE_HEIGHT);
-            sprite.setNbImagesPerSecond(3);
+            sprite.setNbImagesPerSecond(8);
             this.sprites[i] = sprite;
         }
     }

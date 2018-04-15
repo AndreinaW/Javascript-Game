@@ -49,7 +49,7 @@ function loadLevels() {
 
             // load enemies
             lvl.allEnemies.forEach(enemy => {
-                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY));           
+                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY, enemy.max_x));           
                 num_spritesheet++;
             });
 

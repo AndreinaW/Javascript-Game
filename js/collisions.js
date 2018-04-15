@@ -86,6 +86,10 @@ function testCollisionsPlatforms(r, platforms){
                     player.on_the_ground = true;
                     player.jumped = false;    
                 }
+                if(r.pos_y < platform.posY){
+                    r.speedY = 0;
+                    r.speedY = -r.speedY;
+                }
             }
     });
 }
@@ -103,26 +107,22 @@ function testCollisionPlayerEnemy(p, e) {
        (e.pos_y < p.pos_y + p.height && p.pos_y + p.height < e.pos_y + e.height)) 
     {
         // collision p left side e
-        if((e.pos_x < p.pos_x + p.width && p.pos_x + p.width < e.pos_x + e.width) || 
-           (p.pos_x < e.pos_x && e.pos_x < p.pos_x + p.width)) 
+        if((e.pos_x > p.pos_x && (p.pos_x + p.width -extra_sprite_space_right) > e.pos_x ) ||
+        (p.pos_x + p.width  < e.pos_x + e.width && (e.pos_x < p.pos_x + p.width -extra_sprite_space_right)) )
         {
-            //p.pos_x = e.pos_x - p.width - extra_sprite_space_right;
-            e.pos_x = p.pos_x + p.width + extra_sprite_space_right;
-            e.speedX = Math.abs(e.speedX);
-            //e.speedY = -e.speedY;
+            //e.pos_x = p.pos_x + p.width + extra_sprite_space_right;
+            //e.speedX = Math.abs(e.speedX);
             p.speedX = 0;
             console.log("collision left");
         }
         // collision p right side e
-        else if((e.pos_x < p.pos_x && p.pos_x < e.pos_x + e.width) || 
-                (p.pos_x < e.pos_x + e.width && e.pos_x + e.width < p.pos_x + p.width)) 
+        else if((e.pos_x < p.pos_x && p.pos_x +extra_sprite_space_right < e.pos_x + e.width) || 
+                (p.pos_x +extra_sprite_space_right < e.pos_x + e.width && e.pos_x + e.width < p.pos_x + p.width +extra_sprite_space_right)) 
         {
-            //p.pos_x = e.pos_x + e.width + extra_sprite_space_right;
-            e.pos_x = p.pos_x - e.width - extra_sprite_space_right;
-            e.speedX = -Math.abs(e.speedX);
-            //e.speedY = -e.speedY;
+            //e.pos_x = p.pos_x - e.width - extra_sprite_space_right;
+            //e.speedX = -Math.abs(e.speedX);
             p.speedX = 0;
             console.log("collision");
-        }        
+        }   
     }
 }
