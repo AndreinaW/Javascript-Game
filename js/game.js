@@ -53,6 +53,12 @@ function loadLevels() {
                 num_spritesheet++;
             });
 
+            // load coins
+            lvl.coins.forEach(coin => {
+                level.addCoin(new Coin(coin.posX, coin.posY));           
+                num_spritesheet++;
+            });            
+
             levels.push(level);
 
             levels[i].enemies.forEach((enemy) => {
@@ -60,6 +66,14 @@ function loadLevels() {
                     enemy.initSprites();   
                     num_spritesheet_loaded++;
                     startGame();            // ERASE
+                }
+            });
+
+            levels[i].coins.forEach((coin) => {
+                coin.spritesheet.onload = function() {
+                    coin.initSprites();   
+                    num_spritesheet_loaded++;
+                    startGame();            // ERASE or change for a loading in start page
                 }
             });
             i++;

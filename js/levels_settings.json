@@ -3,7 +3,7 @@
     [
         {
             "lvl" : 1,
-            "bckgd_type" : "bckgd_1",
+            "bckgd_type" : "bckgd_2",
             "bricks":
             [
             {
@@ -126,13 +126,11 @@
             [
             {
                 "posX" : 150,
-                "posY" : 250,
-                "src" : "images/brick_custom_1.png"
+                "posY" : 250
             },
             {
                 "posX" : 0,
-                "posY" : 360,
-                "src" : "images/brick_custom_1.png"
+                "posY" : 360
             }]
         },
         {
@@ -172,7 +170,17 @@
                     "posY" : 320,
                     "type" : "enemy_3"
                 }
-            ]
+            ],
+            "coins":
+            [
+            {
+                "posX" : 150,
+                "posY" : 250
+            },
+            {
+                "posX" : 0,
+                "posY" : 360
+            }]
         }
     ]
 }

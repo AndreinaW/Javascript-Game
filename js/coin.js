@@ -1,10 +1,12 @@
-let COIN_SRC = "images/star_coin.png";
+let COIN_SRC = {
+    star_coin: "images/coins.png"
+}
 
 function Coin(pos_x, pos_y) {
-    let SPRITE_WIDTH = 48;
-    let SPRITE_HEIGHT = 48;
+    let SPRITE_WIDTH = 90;
+    let SPRITE_HEIGHT = 105;
     let NB_POSTURES = 1;
-    let NB_FRAMES_PER_POSTURE = 3;
+    let NB_FRAMES_PER_POSTURE = 6;
 
     this.pos_x = pos_x;
     this.pos_y = pos_y;
@@ -18,12 +20,12 @@ function Coin(pos_x, pos_y) {
     // Sprites attributes
     this.sprites = [];
     this.spritesheet = new Image();
-    this.spritesheet.src = COIN_SRC;
+    this.spritesheet.src = COIN_SRC.star_coin;
     
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[0].draw(ctx, this.pos_x, this.pos_y, 1);
+        this.sprites[0].draw(ctx, this.pos_x, this.pos_y, 0.3);
         ctx.restore();
     }
 

@@ -13,7 +13,7 @@ function Level(environment) {
         this.enemies.push(e);
     }
 
-    this.addCoins = function(c) {
+    this.addCoin = function(c) {
         this.coins.push(c);
     }
 
@@ -31,7 +31,10 @@ function Level(environment) {
             enemy.draw(ctx);  
         });
 
-        // TODO: move and draw coins
+        this.coins.forEach((coin) => {
+            coin.draw(ctx);  
+        });
+
         ctx.restore();
     }
 
