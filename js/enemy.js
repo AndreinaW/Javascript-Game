@@ -48,11 +48,11 @@ function Enemy(type, pos_x, pos_y ,max_x,extra_space_left,extra_space_right) {
     this.move = function() {
         if(this.pos_x > this.max_x){
             this.speedX = -this.speedX;
-            this.pos_x = this.max_x;
+            this.pos_x = this.max_x ;
         }  
         else if(this.pos_x < this.min_x){
             this.speedX = -this.speedX;
-            this.pos_x =this.min_x;
+            this.pos_x = this.min_x;
         }        
         this.pos_x += this.speedX;
         this.pos_y += this.speedY;

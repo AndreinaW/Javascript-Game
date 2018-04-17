@@ -1,6 +1,6 @@
 function testCollisions() {
     testWallCollisionsPlayer(player);
-    testWallCollisionsEnemies(getCurrentLevel().enemies);
+    //testWallCollisionsEnemies(getCurrentLevel().enemies);
     testCollisionsPlatforms(player, getCurrentLevel().platforms);
 }
 
@@ -87,34 +87,6 @@ function testCollisionsPlatforms(r, platforms){
 }
 
 
-function testCollisionPlayerEnemies(player, enemies) {
-    enemies.forEach((enemy) => {
-        testCollisionPlayerEnemy(player, enemy);
-    });
-}
-
-function testCollisionPlayerEnemy(p, e) {
-    if((e.pos_y < p.pos_y && p.pos_y < e.pos_y + e.height) || 
-       (e.pos_y < p.pos_y + p.height && p.pos_y + p.height < e.pos_y + e.height)) 
-    {
-        // collision p left side e
-        if((e.pos_x > p.pos_x && (p.pos_x + p.width) > e.pos_x ) /*||
-    (p.pos_x + p.width  < e.pos_x + e.width && (e.pos_x < p.pos_x + p.width)) */)
-        {
-            e.pos_x = p.pos_x + p.width;
-            e.speedX = Math.abs(e.speedX);
-            p.speedX = 0;
-        }
-        // collision p right side e
-        else if((e.pos_x < p.pos_x && p.pos_x < e.pos_x + e.width) /*|| 
-    (p.pos_x < e.pos_x + e.width && e.pos_x + e.width < p.pos_x + p.width)*/) 
-        {
-            e.pos_x = p.pos_x - e.width;
-            e.speedX = -Math.abs(e.speedX);
-            p.speedX = 0;
-        }
-}
-}
 function testCollisionPlayerEnemies(p, e){
     var crash = true;
     //enemy character collision function

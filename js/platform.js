@@ -19,4 +19,5 @@ class Platform{
         ctx.drawImage(this.platform_skin,this.posX,this.posY,this.width,this.height);
         ctx.restore();
     }
+
 }
