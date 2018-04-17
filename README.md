@@ -1,7 +1,7 @@
 # ProjetJavascript
 TODO:
 
-- corriger les collisions
+
 - player perd de vie et quand il n'a plus il meurt
 - ennemies perd de vie et quand ils n'ont plus ils meurent
 - afficher la vie de player (les coeurs de zelda)
@@ -34,3 +34,4 @@ DONE:
 - corriger le mouvement de player
 - afficher les monnais a collecte
 - les ennemies se bouge dans un limite
+- corriger les collisions

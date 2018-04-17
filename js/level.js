@@ -31,7 +31,8 @@ function Level(environment) {
                 console.log("collision");
             }
             else if(testJumpOnEnemy(player,enemy)){
-                console.log("Jumped");
+                enemy.decreaseLive();
+                console.log(enemy.live);
             }
 
             enemy.move();

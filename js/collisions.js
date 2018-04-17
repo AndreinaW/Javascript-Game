@@ -96,6 +96,13 @@ function testCollisionPlayerEnemies(p, e){
         (p.pos_x + p.width < e.pos_x)){
             crash = false;
         }
+    else{
+        e.speedX = -e.speedX;
+        if(e.pos_x < p.pos_x + p.width)
+            p.pos_x = e.pos_x + e.width + 2*p.width;
+        else
+            p.pos_x = e.pos_x - 2*p.width;
+    }
         return crash;
 }
 
@@ -107,6 +114,7 @@ function testJumpOnEnemy(p, e){
         (p.pos_x + p.width > e.pos_x)&&
         (p.pos_x < e.pos_x + e.width)){
             p.pos_y = e.pos_y - p.height - 10;
+            e.pos_x = p.pos_x + p.width + e.width;
             jumpedOn = true;
         }
     return jumpedOn;
