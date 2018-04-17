@@ -1,12 +1,14 @@
 function Player(spritesheetSrc, pos_x, pos_y) {
-    let SPRITE_WIDTH = 48;
-    let SPRITE_HEIGHT = 48;
+    let SPRITE_WIDTH = 36;
+    let SPRITE_HEIGHT = 36;
     let NB_POSTURES = 4;
     let NB_FRAMES_PER_POSTURE = 3;
+    this.extra_space_left = 6;//free space from left of player image
+    this.extra_space_right = 12;//free space from right of player image
 
     this.pos_x = pos_x;
     this.pos_y = pos_y;
-    this.width = SPRITE_WIDTH;
+    this.width = SPRITE_WIDTH - this.extra_space_right;//real width of player
     this.height = SPRITE_HEIGHT;
     this.speedX = 0;
     this.speedY = 0;
@@ -32,7 +34,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 3/4);
+        this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 1);
         ctx.restore();
     }
 
@@ -73,7 +75,8 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         // sprite extraction
         for(let i = 0; i < NB_POSTURES ; i++){
             sprite = new Sprite();
-            sprite.extractSprites(this.spritesheet, NB_POSTURES, (i+1), NB_FRAMES_PER_POSTURE, SPRITE_WIDTH, SPRITE_HEIGHT);
+            sprite.extractSprites(this.spritesheet, NB_POSTURES, (i+1), NB_FRAMES_PER_POSTURE, 
+                                    SPRITE_WIDTH, SPRITE_HEIGHT,this.extra_space_left,this.extra_space_right);
             sprite.setNbImagesPerSecond(10);
             this.sprites[i] = sprite;
         }

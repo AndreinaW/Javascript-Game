@@ -26,7 +26,7 @@ function init() {
 
 
 function loadPlayer() { 
-    player = new Player(PLAYER_SPRITESHEET_URL, canvas.width/2, canvas.height/2);
+    player = new Player(PLAYER_SPRITESHEET_URL,0,344);
     player.spritesheet.onload = function() {
         player.initSprites();      
         num_spritesheet_loaded++;
@@ -49,7 +49,8 @@ function loadLevels() {
 
             // load enemies
             lvl.allEnemies.forEach(enemy => {
-                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY, enemy.max_x));           
+                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY, enemy.max_x,
+                                            enemy.extra_space_left,enemy.extra_space_right));           
                 num_spritesheet++;
             });
 

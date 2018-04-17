@@ -1,16 +1,8 @@
-// IF THIS HAPPENSE WITH THE ENEMIES IT SHOULD BE CHANGED AND PUT AS AN ATTRIBUTE OF THE CLASS
-let extra_sprite_space_right= 27;
-let extra_sprite_space_left = 13;
-let extra_sprite_space_down = 12;
-
-
 function testCollisions() {
     testWallCollisionsPlayer(player);
     testWallCollisionsEnemies(getCurrentLevel().enemies);
-    testCollisionPlayerEnemies(player, getCurrentLevel().enemies);
     testCollisionsPlatforms(player, getCurrentLevel().platforms);
 }
-
 
 function testWallCollisions(r) {
     // right wall
@@ -46,20 +38,20 @@ function testWallCollisionsEnemies(enemies) {
 
 function testWallCollisionsPlayer(player) {
     // right wall
-    if((player.pos_x + player.width - extra_sprite_space_right) > canvas.width) {
+    if((player.pos_x + player.width) > canvas.width) {
         player.speedX = 0;
-        player.pos_x = canvas.width - player.width + extra_sprite_space_right;
+        player.pos_x = canvas.width - player.width;
     }
     // left wall
-    else if((player.pos_x + extra_sprite_space_left) < 0){
+    else if((player.pos_x) < 0){
         player.speedX = 0;
-        player.pos_x = -extra_sprite_space_left;
+        player.pos_x = 0;
     }
 
     // down wall
-    if((player.pos_y + player.height -extra_sprite_space_down) > canvas.height) {
+    if((player.pos_y + player.height) > canvas.height) {
         player.speedY = 0;
-        player.pos_y = canvas.height - player.height + extra_sprite_space_down;
+        player.pos_y = canvas.height - player.height;
         player.on_the_ground = true;
         player.jumped = false;    
     }
@@ -74,21 +66,21 @@ function testWallCollisionsPlayer(player) {
 function testCollisionsPlatforms(r, platforms){
     platforms.forEach(platform => {
 
-        if(r.pos_x + extra_sprite_space_right > platform.posX &&
-            (r.pos_x + extra_sprite_space_left < platform.posX + platform.width )&&
-            ((r.pos_y + r.height - extra_sprite_space_down) > platform.posY)){
-                //r.pos_y = platform.posY - r.height +extra_sprite_space_down;
-                if((r.pos_y + extra_sprite_space_down) < platform.posY)
+        if(r.pos_x + r.width > platform.posX &&
+            (r.pos_x < platform.posX + platform.width )&&
+            ((r.pos_y + r.height) > platform.posY)){
+                if(r.pos_y < platform.posY)
                 {
                     r.speedY = 0;
                     r.speedY = -r.speedY;
-                    r.pos_y = platform.posY - r.height + extra_sprite_space_down;
+                    r.pos_y = platform.posY - r.height ;
                     player.on_the_ground = true;
                     player.jumped = false;    
                 }
-                if(r.pos_y < platform.posY){
+                if(r.pos_y < platform.posY + platform.height/2){
                     r.speedY = 0;
                     r.speedY = -r.speedY;
+                    player.jumped = false;
                 }
             }
     });
@@ -101,28 +93,49 @@ function testCollisionPlayerEnemies(player, enemies) {
     });
 }
 
-
 function testCollisionPlayerEnemy(p, e) {
     if((e.pos_y < p.pos_y && p.pos_y < e.pos_y + e.height) || 
        (e.pos_y < p.pos_y + p.height && p.pos_y + p.height < e.pos_y + e.height)) 
     {
         // collision p left side e
-        if((e.pos_x > p.pos_x && (p.pos_x + p.width -extra_sprite_space_right) > e.pos_x ) ||
-        (p.pos_x + p.width  < e.pos_x + e.width && (e.pos_x < p.pos_x + p.width -extra_sprite_space_right)) )
+        if((e.pos_x > p.pos_x && (p.pos_x + p.width) > e.pos_x ) /*||
+    (p.pos_x + p.width  < e.pos_x + e.width && (e.pos_x < p.pos_x + p.width)) */)
         {
-            //e.pos_x = p.pos_x + p.width + extra_sprite_space_right;
-            //e.speedX = Math.abs(e.speedX);
+            e.pos_x = p.pos_x + p.width;
+            e.speedX = Math.abs(e.speedX);
             p.speedX = 0;
-            console.log("collision left");
         }
         // collision p right side e
-        else if((e.pos_x < p.pos_x && p.pos_x +extra_sprite_space_right < e.pos_x + e.width) || 
-                (p.pos_x +extra_sprite_space_right < e.pos_x + e.width && e.pos_x + e.width < p.pos_x + p.width +extra_sprite_space_right)) 
+        else if((e.pos_x < p.pos_x && p.pos_x < e.pos_x + e.width) /*|| 
+    (p.pos_x < e.pos_x + e.width && e.pos_x + e.width < p.pos_x + p.width)*/) 
         {
-            //e.pos_x = p.pos_x - e.width - extra_sprite_space_right;
-            //e.speedX = -Math.abs(e.speedX);
+            e.pos_x = p.pos_x - e.width;
+            e.speedX = -Math.abs(e.speedX);
             p.speedX = 0;
-            console.log("collision");
-        }   
-    }
+        }
+}
+}
+function testCollisionPlayerEnemies(p, e){
+    var crash = true;
+    //enemy character collision function
+    if((p.pos_y + p.height < e.pos_y ) ||
+        (p.pos_y > e.pos_y + e.height) ||
+        (p.pos_x > e.pos_x + e.width) ||
+        (p.pos_x + p.width < e.pos_x)){
+            crash = false;
+        }
+        return crash;
+}
+
+function testJumpOnEnemy(p, e){
+    var jumpedOn = false;
+    //player bottom collision with enemy top side
+    if((p.pos_y + p.height > e.pos_y -5)&&
+        (p.pos_y + p.height < e.pos_y + e.height/2)&&
+        (p.pos_x + p.width > e.pos_x)&&
+        (p.pos_x < e.pos_x + e.width)){
+            p.pos_y = e.pos_y - p.height - 10;
+            jumpedOn = true;
+        }
+    return jumpedOn;
 }

@@ -66,21 +66,35 @@
             "allEnemies" : [
                 {
                     "posX" : 0,
-                    "posY" : 187,
-                    "type" : "enemy_2",
-                    "max_x":230
+                    "posY" : 184,
+                    "type" : "enemy_1",
+                    "max_x":230,
+                    "extra_space_left": 10,
+                    "extra_space_right":20
                 },
                 {
                     "posX" : 550,
-                    "posY" : 187,
+                    "posY" : 184,
                     "type" : "enemy_2",
-                    "max_x":790
+                    "max_x":790,
+                    "extra_space_left": 12,
+                    "extra_space_right":20
                 },
                 {
                     "posX" : 200,
                     "posY" : 44,
                     "type" : "enemy_3",
-                    "max_x":550
+                    "max_x":550,
+                    "extra_space_left": 5,
+                    "extra_space_right":10
+                },
+                {
+                    "posX" : 200,
+                    "posY" : 0,
+                    "type" : "enemy_4",
+                    "max_x":550,
+                    "extra_space_left": 0,
+                    "extra_space_right":5
                 }
             ],
             "coins":
@@ -132,6 +146,11 @@
                 },
                 {
                     "posX" : 320,
+                    "posY" : 320,
+                    "type" : "enemy_3"
+                },
+                {
+                    "posX" : 200,
                     "posY" : 320,
                     "type" : "enemy_3"
                 }

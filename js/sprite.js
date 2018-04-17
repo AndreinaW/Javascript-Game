@@ -7,7 +7,7 @@ function Sprite(){
     
 
   this.extractSprites = function(spritesheet,nb_postures,posture_to_extract,nb_frames_per_posture,
-    sprite_width, sprite_height) {
+    sprite_width, sprite_height, extra_space_left,extra_space_right) {
     // number of sprites per row in the spritesheet
     var nb_sprites_per_row = Math.floor(spritesheet.width / sprite_width);
 
@@ -19,12 +19,14 @@ function Sprite(){
         // index
         // x is the rest of index/nbSpritesPerRow * width of a sprite
         var x = (index % nb_sprites_per_row) * sprite_width;
+
         // y is the divisor of index by nbSpritesPerRow * height of a sprite
         var y = Math.floor(index / nb_sprites_per_row) * sprite_height;
   
         // build a spriteImage object
-        var s = new SpriteImage(spritesheet, x, y, sprite_width, sprite_height);
-  
+        var s = new SpriteImage(spritesheet, x + extra_space_left, y,
+                                 sprite_width -extra_space_right, sprite_height);
+        //move x with extra_spece_x pixels
         this.sprite_array.push(s);
     }
   }
@@ -57,7 +59,7 @@ function Sprite(){
   }
 
   this.setNbImagesPerSecond = function(nb){
-    // elay in ms between images
+    // delay in ms between images
     this.delay_between_frames = 1000 / nb;
   };
 }

@@ -27,6 +27,13 @@ function Level(environment) {
         });
 
         this.enemies.forEach((enemy) => {
+            if(testCollisionPlayerEnemies(player,enemy)){
+                console.log("collision");
+            }
+            else if(testJumpOnEnemy(player,enemy)){
+                console.log("Jumped");
+            }
+
             enemy.move();
             enemy.draw(ctx);  
         });
