@@ -38,7 +38,31 @@
   padding: 10px;
   padding-bottom: 6px;
 }
+#settings {
+	/*display: none;*/
+	background-color:#e5e5e5;
+	
+}
+#settings .left{
+	width: 25%;
+	display: inline-block;
 
+}
+#settings .center{
+	padding-left: 15%;
+	width: 48%;
+	display: inline-block;
+
+}
+#settings .right{
+	padding-left: 5%;
+	width: 25%;
+	display: inline-block;
+
+}
+#settings img:hover{
+	background-color: gold;
+}
 #canvas {
   width: 100%;
 }

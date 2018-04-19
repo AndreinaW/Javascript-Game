@@ -11,17 +11,28 @@ let num_spritesheet_loaded = 0;
 // levels
 let levels = [];
 let current_level = 0;
-
+//pause 
+let pause = false;
+//audio
+let game_audio_theme,jump_audio,enemy_killed_audio,coin_pickup_audio,player_touched_audio;
+let mute_audio = false;
+let audio_button;
 
 function init() {
     console.log("page loaded");
-    addStartClickListener();
-
+    //addStartClickListener();
+    bottomButtonsListener();
     canvas = document.querySelector("#canvas");
     ctx = canvas.getContext("2d");
-
+    game_audio_theme = new Audio("audio/gameTheme.mp3");
+    jump_audio = new Audio("audio/jump.wav");
+    enemy_killed_audio = new Audio("audio/enemy_killed.wav");
+    coin_pickup_audio = new Audio("audio/coin_pickup.wav");
+    player_touched_audio = new Audio("audio/player_touched.mp3");
+    audio_button = document.querySelector("#audioSettings");
     loadPlayer();
     loadLevels();
+    playAudio("theme");
 }
 
 
@@ -99,11 +110,36 @@ function moveAndDrawAllObjects() {
 
 
 function startGame() {
-    if(num_spritesheet_loaded == num_spritesheet) {
+    if((num_spritesheet_loaded == num_spritesheet)) {
         requestAnimationFrame(animation);
     }
 }
 
 function getCurrentLevel() {
     return levels[current_level];
+}
+
+function playAudio(subject){
+    if(!mute_audio){
+        audio_button.src = "images/audioOn.png";
+        switch (subject) {
+            case "theme":
+                game_audio_theme.loop = true;
+                game_audio_theme.play();
+                break;
+            case "jump":
+                jump_audio.play();
+                break;
+            case "touched":
+                player_touched_audio.play();
+            break;
+            case "enemy_killed":
+                enemy_killed_audio.play();
+            break;
+            default:
+                break;
+        }
+    }
+    else
+        audio_button.src = "images/audioOff.png";
 }
