@@ -13,6 +13,13 @@ function Level(environment) {
         this.enemies.push(e);
     }
 
+    this.removeEnemy = function(e) {
+        let index = this.enemies.indexOf(e);
+        if (index > -1) {
+            this.enemies.splice(index, 1);
+        }
+    }
+
     this.addCoin = function(c) {
         this.coins.push(c);
     }

@@ -6,7 +6,7 @@ function testCollisions() {
     testCollisionsPlatformsPlayer(player, level.platforms);
 
     //testCollisionWallEnemies(getCurrentLevel().enemies);
-    testCollisionsPlayerEnemies(player, level.enemies);
+    testCollisionsPlayerEnemies(player, level);
 }
 
 
@@ -94,21 +94,20 @@ function testCollisionsPlatformsPlayer(r, platforms){
 }
 
 
-function testCollisionsPlayerEnemies(player, enemies) {
-    enemies.forEach((enemy) => {
+function testCollisionsPlayerEnemies(player, level) {
+    level.enemies.forEach((enemy) => {
         if(testCollisionPlayerEnemy(player, enemy)) {            
             playAudio("touched");
-            player.decreaseLife();
+            player.decreaseLife();            
         }
-        else if(testJumpOnEnemy(player, enemy)){
+        else if(testJumpOnEnemy(player, enemy)) {
             playAudio("enemy_killed");
             enemy.decreaseLife();
 
-            if(enemy.isDead()) {
+            if(enemy.isDead()) {                
+                level.removeEnemy(enemy);
                 console.log("dead enemy");
             }
-            
-            console.log(enemy.life);
         }
     });
 }
