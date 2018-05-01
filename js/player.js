@@ -1,8 +1,14 @@
+let HEART_SRC = {
+    heart_full: "images/heart.png",
+    heart_empty: "images/heart_lost.png"
+}
+
 function Player(spritesheetSrc, pos_x, pos_y) {
     let SPRITE_WIDTH = 36;
     let SPRITE_HEIGHT = 36;
     let NB_POSTURES = 4;
     let NB_FRAMES_PER_POSTURE = 3;
+    let MAX_LIFE = 3;
     this.extra_space_left = 6;//free space from left of player image
     this.extra_space_right = 12;//free space from right of player image
 
@@ -12,13 +18,20 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.height = SPRITE_HEIGHT;
     this.speedX = 0;
     this.speedY = 0;
-    this.live = 3;
+    this.life = MAX_LIFE;
     this.move_speed = 4;
     this.on_the_ground = false;
     this.jumped = false;
     this.jump_speed = 10; 
     this.move_dir = {};
     
+    this.life_heart = {
+        full: new Image(),
+        empty: new Image()
+    }
+    this.life_heart.full.src = HEART_SRC.heart_full;
+    this.life_heart.empty.src = HEART_SRC.heart_empty;
+
 
     // Sprites attributes
     this.sprite_left = 1;   //row of spritesheet
@@ -31,10 +44,37 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.spritesheet.src = spritesheetSrc;
     this.current_sprite = this.sprite_front;
     
+    this.reset = function(pos_x, pos_y) {      
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.life = MAX_LIFE;
+        this.on_the_ground = false;
+        this.jumped = false;
+        this.jump_speed = 10;
+
+        this.current_sprite = this.sprite_front;
+    }
 
     this.draw = function(ctx) {
         ctx.save();
         this.sprites[this.current_sprite].draw(ctx, this.pos_x, this.pos_y, 1);
+        ctx.restore();
+    }
+
+
+    this.drawHearts = function(ctx) {
+        let x = 0;
+        ctx.save();
+        for(let i = 0; i < MAX_LIFE ; i++) {
+            if(i < this.life) {
+                ctx.drawImage(this.life_heart.full, x, 0);
+            } else {
+                ctx.drawImage(this.life_heart.empty, x, 0);
+            }             
+            x += 20;
+        }        
         ctx.restore();
     }
 
@@ -83,12 +123,15 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     }
 
 
-    this.decreaseLive = function() {
-        this.live--;
+    this.decreaseLife = function() {
+        this.life--;
     }
 
+    this.setDead = function() {
+        this.life = 0;
+    }
 
     this.isDead = function() {
-        return this.live === 0;
+        return this.life === 0;
     }
 }

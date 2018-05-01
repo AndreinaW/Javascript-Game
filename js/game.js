@@ -11,28 +11,33 @@ let num_spritesheet_loaded = 0;
 // levels
 let levels = [];
 let current_level = 0;
-//pause 
-let pause = false;
+
+let isPlaying = true;
+
 //audio
 let game_audio_theme,jump_audio,enemy_killed_audio,coin_pickup_audio,player_touched_audio;
 let mute_audio = false;
-let audio_button;
+
 
 function init() {
     console.log("page loaded");
-    //addStartClickListener();
-    bottomButtonsListener();
+    addAllButtonsClickListeners();
+
     canvas = document.querySelector("#canvas");
     ctx = canvas.getContext("2d");
+    loadMusic();
+    loadPlayer();
+    loadLevels();
+    playAudio("theme");
+}
+
+
+function loadMusic() {
     game_audio_theme = new Audio("audio/gameTheme.mp3");
     jump_audio = new Audio("audio/jump.wav");
     enemy_killed_audio = new Audio("audio/enemy_killed.wav");
     coin_pickup_audio = new Audio("audio/coin_pickup.wav");
-    player_touched_audio = new Audio("audio/player_touched.mp3");
-    audio_button = document.querySelector("#audioSettings");
-    loadPlayer();
-    loadLevels();
-    playAudio("theme");
+    player_touched_audio = new Audio("audio/player_touched.mp3");    
 }
 
 
@@ -96,16 +101,25 @@ function loadLevels() {
 
 function animation() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    moveAndDrawAllObjects();
     testCollisions();
-    requestAnimationFrame(animation);
+    moveAndDrawAllObjects();
+
+    if(isPlaying) {
+        if(!player.isDead()) {
+            requestAnimationFrame(animation);
+        } 
+        else {
+            gameOver();
+        }
+    }
 }
 
 
 function moveAndDrawAllObjects() {
     getCurrentLevel().moveAndDrawElements(ctx);
     player.move();
-    player.draw(ctx);    
+    player.draw(ctx); 
+    player.drawHearts(ctx);   
 }
 
 
@@ -115,13 +129,33 @@ function startGame() {
     }
 }
 
+
+function restartGame() {
+    num_spritesheet = 0;
+    num_spritesheet_loaded = 0;
+    isPlaying = true;
+    mute_audio = false;
+    current_level = 0;
+    levels.length = 0;
+    loadLevels();
+    player.reset(0, 334);
+    startGame();
+}
+
+
+function gameOver() {
+    document.querySelector("#popup").style =  "display: block;";
+    document.querySelector("#popup_title").innerHTML =  "Game Over!";
+}
+
+
 function getCurrentLevel() {
     return levels[current_level];
 }
 
-function playAudio(subject){
-    if(!mute_audio){
-        audio_button.src = "images/audioOn.png";
+
+function playAudio(subject) {
+    if(!mute_audio) {
         switch (subject) {
             case "theme":
                 game_audio_theme.loop = true;
@@ -132,14 +166,12 @@ function playAudio(subject){
                 break;
             case "touched":
                 player_touched_audio.play();
-            break;
+                break;
             case "enemy_killed":
                 enemy_killed_audio.play();
-            break;
+                break;
             default:
                 break;
         }
     }
-    else
-        audio_button.src = "images/audioOff.png";
 }

@@ -21,7 +21,7 @@ function Enemy(type, pos_x, pos_y ,max_x,extra_space_left,extra_space_right) {
     this.move_speed = 2;
     this.speedX = this.move_speed;
     this.speedY = 0;
-    this.live = 2;
+    this.life = 2;
 
     this.extra_space_left = extra_space_left;
     this.extra_space_right = extra_space_right;
@@ -77,12 +77,12 @@ function Enemy(type, pos_x, pos_y ,max_x,extra_space_left,extra_space_right) {
     }
 
 
-    this.decreaseLive = function() {
-        this.live--;
+    this.decreaseLife = function() {
+        this.life--;
     }
 
 
     this.isDead = function() {
-        return this.live === 0;
+        return this.life === 0;
     }
 }

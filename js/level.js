@@ -27,22 +27,12 @@ function Level(environment) {
         });
 
         this.enemies.forEach((enemy) => {
-            if(testCollisionPlayerEnemies(player,enemy)){
-                console.log("collision");
-                playAudio("touched");
-            }
-            else if(testJumpOnEnemy(player,enemy)){
-                playAudio("enemy_killed");
-                enemy.decreaseLive();
-                console.log(enemy.live);
-            }
-
             enemy.move();
             enemy.draw(ctx);  
         });
 
         this.coins.forEach((coin) => {
-            coin.draw(ctx);  
+            coin.draw(ctx);
         });
 
         ctx.restore();

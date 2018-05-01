@@ -1,53 +1,84 @@
+
+function addAllButtonsClickListeners() {
+  addStartClickListener();
+  addRestartClickListener();
+  addAudioOnOffClickListener();
+  addPlayPauseClickListener();
+}
+
+
 function addStartClickListener() {
   document.querySelector("#buttonStart").addEventListener('click', function(event) {
-      console.log("emnte");
-      document.querySelector("#gameScreen").style =  "display: block;";
-      document.querySelector("#startScreen").style =  "display: none;";
-      startGame();
+    document.querySelector("#gameScreen").style =  "display: block;";
+    document.querySelector("#startScreen").style =  "display: none;";
+    startGame();
   });
 }
-function bottomButtonsListener(){
-  document.querySelector("#audioSettings").addEventListener('click', function(event) {
-    mute_audio = !mute_audio;
-    game_audio_theme.pause();
-    playAudio("theme");
-    console.log("emnte");
+
+
+function addRestartClickListener() {
+  document.querySelector("#bt_restart").addEventListener('click', function(event) {
+    document.querySelector("#popup").style =  "display: none;";
+    restartGame();
   });
-  document.querySelector("#move_left").addEventListener('mousedown', function(event) {
-    player.move_dir.left = true;
-  });
-  document.querySelector("#move_up").addEventListener('mousedown', function(event) {
-    if(player.on_the_ground) {    // single jump
-      player.move_dir.up = true;
-      player.on_the_ground = false;
-      player.jumped = true;
-      playAudio("jump");
-    }
-    else if(player.jumped) {      // double jump
-      player.move_dir.up = true;
-      player.jumped = false;
+}
+
+
+function addAudioOnOffClickListener() { 
+  let bt = document.querySelector("#bt_audioOnOff");
+  bt.addEventListener('click', function(event) {
+    if(!mute_audio) {
+      bt.classList.add("bt_audioOn");
+      bt.classList.remove("bt_audioOff");
+      playAudio("theme");
     } 
     else {
-      player.move_dir.up = false;
-    }  
+      bt.classList.add("bt_audioOff");
+      bt.classList.remove("bt_audioOn");
+      game_audio_theme.pause();      
+    }
+    mute_audio = !mute_audio;    
   });
-  document.querySelector("#move_right").addEventListener('mousedown', function(event) {
-    player.move_dir.right = true;
-  });
-
-  document.querySelector("#move_left").addEventListener('mouseup', function(event) {
-    player.move_dir.left = false;
-  });
-  document.querySelector("#move_up").addEventListener('mouseup', function(event) {
-    player.move_dir.up = false;
-  });
-  document.querySelector("#move_right").addEventListener('mouseup', function(event) {
-    player.move_dir.right = false;
-
-  });
-
-
 }
+
+
+function addPlayPauseClickListener() { 
+  let bt_audio = document.querySelector("#bt_audioOnOff");
+  let bt_play = document.querySelector("#bt_playPause");
+  
+  bt_play.addEventListener('click', function(event) 
+  {
+    // pause
+    if(isPlaying) { 
+      bt_play.classList.add("bt_play");
+      bt_play.classList.remove("bt_pause");
+      mute_audio = true;
+    } 
+    // plays
+    else {
+      bt_play.classList.add("bt_pause");
+      bt_play.classList.remove("bt_play");      
+      mute_audio = false;
+      requestAnimationFrame(animation);
+    }
+    
+    if(!mute_audio) {
+      bt_audio.classList.add("bt_audioOn");
+      bt_audio.classList.remove("bt_audioOff");
+      playAudio("theme");
+    } 
+    else {
+      bt_audio.classList.add("bt_audioOff");
+      bt_audio.classList.remove("bt_audioOn");
+      game_audio_theme.pause();      
+    }
+
+    isPlaying = !isPlaying;
+  });
+}
+
+
+
 // Add the listener to the main, window object, and update the states
 window.addEventListener('keydown', function(event) {
   let code = event.keyCode;
@@ -69,10 +100,12 @@ window.addEventListener('keydown', function(event) {
         player.on_the_ground = false;
         player.jumped = true;
         playAudio("jump");
+        console.log("single");
       }
       else if(player.jumped) {      // double jump
         player.move_dir.up = true;
         player.jumped = false;
+        console.log("double");
       } 
       else {
         player.move_dir.up = false;
@@ -101,10 +134,7 @@ window.addEventListener('keyup', function(event) {
     case 38:
       player.move_dir.up = false;
       break;
-     //Space for pause    
-    case 32:
-      pause = !pause;
-      break;
+
     case 77:
       mute_audio = !mute_audio;
       game_audio_theme.pause();

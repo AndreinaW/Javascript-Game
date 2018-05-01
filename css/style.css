@@ -27,45 +27,11 @@
 }
 
 .main {
-	width:90%;
+  width:90%;
   margin: auto;
   background-color: #111;
 }
 
-#gameScreen {
-	/*display: none;*/
-  background-color:#e5e5e5;
-  padding: 10px;
-  padding-bottom: 6px;
-}
-#settings {
-	/*display: none;*/
-	background-color:#e5e5e5;
-	
-}
-#settings .left{
-	width: 25%;
-	display: inline-block;
-
-}
-#settings .center{
-	padding-left: 15%;
-	width: 48%;
-	display: inline-block;
-
-}
-#settings .right{
-	padding-left: 5%;
-	width: 25%;
-	display: inline-block;
-
-}
-#settings img:hover{
-	background-color: gold;
-}
-#canvas {
-  width: 100%;
-}
 
 
 #startScreen{
@@ -76,15 +42,13 @@
 	align-items: center;
 	justify-content: center;
 }
-
 .title {
 	font-family: "Montserrat";
 	text-align: center;
 	color: #FFF;
 	letter-spacing: 1px;
 }
-
-h1 {
+.title h1 {
 	background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
 	background-size: cover;
 	color: transparent;
@@ -95,7 +59,6 @@ h1 {
 	line-height: .75;
 	margin: 10px 0;
 }
-
 #buttonStart {
 	text-transform: uppercase;
 	text-decoration: none;
@@ -109,9 +72,102 @@ h1 {
 	margin-top: 50px;
 	font-family: "Montserrat";
 }
-
 #buttonStart:hover {
 	background-color: #FFF;
 	color: #122;
+}
+
+
+.btn {
 	cursor: pointer;
+}
+
+
+
+
+
+
+#gameScreen {
+	/*display: none;*/
+  background-color:#e5e5e5;
+  padding: 10px;
+  padding-bottom: 6px;
+  position: relative;
+}
+#canvas {
+  width: 100%;
+}
+#bar_buttons {
+	position: absolute;
+	top: 0; 
+	left: 100%;
+	margin-top: 14px;
+	margin-left: -100px;
+	display: flex;
+}
+#bt_audioOnOff {
+	height: 33px;
+	width: 40px; 
+}
+.bt_audioOn {
+	background: url("../images/audioOn.png");
+}
+.bt_audioOn:hover {
+	background: url("../images/audioOn_hover.png");
+}
+.bt_audioOff {
+	background: url("../images/audioOff.png");
+}
+.bt_audioOff:hover {
+	background: url("../images/audioOff_hover.png");
+}
+#bt_playPause {
+	height: 33px;
+	width: 40px; 
+	margin-left: 5px;
+}
+.bt_pause {
+	background-image: url("../images/pause.png");
+}
+.bt_pause:hover {
+	background-image: url("../images/pause_hover.png");
+}
+.bt_play {
+	background-image: url("../images/play.png");
+}
+.bt_play:hover {
+	background-image: url("../images/play_hover.png");
+}
+
+
+
+
+#popup {
+  display: none;
+  background-color: white;
+  border: 6px solid #565656;
+  width: 300px;
+  height: 200px;
+  position: fixed;
+  top: 50%; 
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -150px;
+  border-radius: 5px;
+  text-align: center;
+  font-family: "Montserrat";
+  padding-top: 10px;
+}
+#popup h1 {
+	font-weight: bold;
+}
+#bt_restart {
+	width: 100px;
+  	height: 35px;
+  	margin: auto;
+	margin-top: 20px;
+	background-image: url("../images/bt_restart.png");
+}
+#bt_restart:hover {
+	background: url("../images/bt_restart_hover.png");
 }
