@@ -27,7 +27,6 @@ function Level(environment) {
 
     this.moveAndDrawElements = function(ctx) {
         ctx.save();
-        this.environment.move();
         this.environment.draw(ctx);
         this.platforms.forEach(platform => {
             platform.draw(ctx);

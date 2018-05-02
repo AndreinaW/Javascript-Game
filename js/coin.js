@@ -2,7 +2,7 @@ let COIN_SRC = {
     star_coin: "images/coins.png"
 }
 
-function Coin(pos_x, pos_y) {
+function Coin(pos_x, pos_y,extra_space_left,extra_space_right) {
     let SPRITE_WIDTH = 90;
     let SPRITE_HEIGHT = 105;
     let NB_POSTURES = 1;
@@ -21,11 +21,13 @@ function Coin(pos_x, pos_y) {
     this.sprites = [];
     this.spritesheet = new Image();
     this.spritesheet.src = COIN_SRC.star_coin;
-    
+
+    this.extra_space_left = extra_space_left;
+    this.extra_space_right = extra_space_right;
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[0].draw(ctx, this.pos_x, this.pos_y, 0.3);
+        this.sprites[0].draw(ctx, this.pos_x, this.pos_y,1/3);
         ctx.restore();
     }
 
@@ -41,7 +43,8 @@ function Coin(pos_x, pos_y) {
         // sprite extraction
         for(let i = 0; i < NB_POSTURES ; i++){
             sprite = new Sprite();
-            sprite.extractSprites(this.spritesheet, NB_POSTURES, (i+1), NB_FRAMES_PER_POSTURE, SPRITE_WIDTH, SPRITE_HEIGHT);
+            sprite.extractSprites(this.spritesheet, NB_POSTURES, (i+1), NB_FRAMES_PER_POSTURE, SPRITE_WIDTH, SPRITE_HEIGHT,
+                                    this.extra_space_left,this.extra_space_left);
             sprite.setNbImagesPerSecond(10);
             this.sprites[i] = sprite;
         }

@@ -27,17 +27,16 @@ function addRestartClickListener() {
 function addAudioOnOffClickListener() { 
   let bt = document.querySelector("#bt_audioOnOff");
   bt.addEventListener('click', function(event) {
+    mute_audio = !mute_audio; 
     if(!mute_audio) {
       bt.classList.add("bt_audioOn");
       bt.classList.remove("bt_audioOff");
-      playAudio("theme");
     } 
     else {
       bt.classList.add("bt_audioOff");
       bt.classList.remove("bt_audioOn");
-      game_audio_theme.pause();      
     }
-    mute_audio = !mute_audio;    
+    playAudio("theme");   
   });
 }
 
@@ -136,11 +135,18 @@ window.addEventListener('keyup', function(event) {
       break;
 
     case 77:
-      mute_audio = !mute_audio;
-      game_audio_theme.pause();
+    let bt = document.querySelector("#bt_audioOnOff");
+      mute_audio = !mute_audio; 
+      if(!mute_audio) {
+        bt.classList.add("bt_audioOn");
+        bt.classList.remove("bt_audioOff");
+      } 
+      else {
+        bt.classList.add("bt_audioOff");
+        bt.classList.remove("bt_audioOn");
+      }
       playAudio("theme");
       break; 
   }
-  
 }, false);
   

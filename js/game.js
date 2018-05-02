@@ -72,7 +72,7 @@ function loadLevels() {
 
             // load coins
             lvl.coins.forEach(coin => {
-                level.addCoin(new Coin(coin.posX, coin.posY));           
+                level.addCoin(new Coin(coin.posX, coin.posY,0,0));           
                 num_spritesheet++;
             });            
 
@@ -174,4 +174,6 @@ function playAudio(subject) {
                 break;
         }
     }
+    if(mute_audio)
+        game_audio_theme.pause();
 }
