@@ -7,6 +7,7 @@ function testCollisions() {
 
     //testCollisionWallEnemies(getCurrentLevel().enemies);
     testCollisionsPlayerEnemies(player, level);
+    testCollisionPlayerCoins(player,level);
 }
 
 
@@ -96,7 +97,7 @@ function testCollisionsPlatformsPlayer(r, platforms){
 
 function testCollisionsPlayerEnemies(player, level) {
     level.enemies.forEach((enemy) => {
-        if(testCollisionPlayerEnemy(player, enemy)) {            
+        if(testCollisionPlayerObject(player, enemy)) {            
             playAudio("touched");
             player.decreaseLife();            
         }
@@ -111,24 +112,31 @@ function testCollisionsPlayerEnemies(player, level) {
         }
     });
 }
+function testCollisionPlayerCoins(player, level){
+    level.coins.forEach((coin) => {
+        if(testCollisionPlayerObject(player,coin)){
+            playAudio("coin_pickup");
+            level.removeCoin(coin);
+        }
+    });
+}
 
-
-function testCollisionPlayerEnemy(p, e){
+function testCollisionPlayerObject(p, e){
     var crash = true;
-    //enemy character collision function
+    //objects character collision function
     if((p.pos_y + p.height < e.pos_y ) ||
         (p.pos_y > e.pos_y + e.height) ||
         (p.pos_x > e.pos_x + e.width) ||
         (p.pos_x + p.width < e.pos_x)){
             crash = false;
-        }
+        }/*
     else{
         e.speedX = -e.speedX;
         if(e.pos_x < p.pos_x + p.width)
             p.pos_x = e.pos_x + e.width + 2*p.width;
         else
             p.pos_x = e.pos_x - 2*p.width;
-    }
+    }*/
     return crash;
 }
 

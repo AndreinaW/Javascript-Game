@@ -170,6 +170,9 @@ function playAudio(subject) {
             case "enemy_killed":
                 enemy_killed_audio.play();
                 break;
+            case "coin_pickup":
+                coin_pickup_audio.play();
+                break;
             default:
                 break;
         }

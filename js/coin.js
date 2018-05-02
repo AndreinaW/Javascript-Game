@@ -3,8 +3,8 @@ let COIN_SRC = {
 }
 
 function Coin(pos_x, pos_y,extra_space_left,extra_space_right) {
-    let SPRITE_WIDTH = 90;
-    let SPRITE_HEIGHT = 105;
+    let SPRITE_WIDTH = 36;
+    let SPRITE_HEIGHT = 36;
     let NB_POSTURES = 1;
     let NB_FRAMES_PER_POSTURE = 6;
 
@@ -27,7 +27,7 @@ function Coin(pos_x, pos_y,extra_space_left,extra_space_right) {
 
     this.draw = function(ctx) {
         ctx.save();
-        this.sprites[0].draw(ctx, this.pos_x, this.pos_y,1/3);
+        this.sprites[0].draw(ctx, this.pos_x, this.pos_y,1);
         ctx.restore();
     }
 

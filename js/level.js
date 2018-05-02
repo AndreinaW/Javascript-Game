@@ -20,6 +20,13 @@ function Level(environment) {
         }
     }
 
+    this.removeCoin = function(c) {
+        let index = this.coins.indexOf(c);
+        if(index > -1){
+            this.coins.splice(index,1);
+        }
+    }
+
     this.addCoin = function(c) {
         this.coins.push(c);
     }
