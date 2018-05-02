@@ -24,7 +24,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.jumped = false;
     this.jump_speed = 10; 
     this.move_dir = {};
-    
+    this.collected_coins = 0;
     this.life_heart = {
         full: new Image(),
         empty: new Image()
@@ -32,6 +32,8 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.life_heart.full.src = HEART_SRC.heart_full;
     this.life_heart.empty.src = HEART_SRC.heart_empty;
 
+    this.total_coins = new Image();
+    this.total_coins.src = "images/total_coins.png";
 
     // Sprites attributes
     this.sprite_left = 1;   //row of spritesheet
@@ -53,6 +55,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         this.on_the_ground = false;
         this.jumped = false;
         this.jump_speed = 10;
+        this.collected_coins = 0;
 
         this.current_sprite = this.sprite_front;
     }
@@ -79,6 +82,12 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         ctx.restore();
     }
 
+    this.drawTotalCoins = function(ctx){
+        ctx.save();
+        ctx.drawImage(this.total_coins,0,20);
+        ctx.fillText(this.collected_coins + "/"+getCurrentLevel().nb_coins_for_level,20,35);
+        ctx.restore();
+    }
 
     this.move = function() 
     {    

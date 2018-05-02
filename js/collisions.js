@@ -117,6 +117,7 @@ function testCollisionPlayerCoins(player, level){
         if(testCollisionPlayerObject(player,coin)){
             playAudio("coin_pickup");
             level.removeCoin(coin);
+            player.collected_coins++;
         }
     });
 }

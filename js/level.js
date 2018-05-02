@@ -3,7 +3,7 @@ function Level(environment) {
     this.platforms = [];
     this.enemies = [];
     this.coins = [];
-
+    this.nb_coins_for_level = 0;
 
     this.addPlatform = function(p) {
         this.platforms.push(p);

@@ -72,7 +72,8 @@ function loadLevels() {
 
             // load coins
             lvl.coins.forEach(coin => {
-                level.addCoin(new Coin(coin.posX, coin.posY,0,0));           
+                level.addCoin(new Coin(coin.posX, coin.posY,0,0));
+                level.nb_coins_for_level++;        
                 num_spritesheet++;
             });            
 
@@ -101,11 +102,10 @@ function loadLevels() {
 
 function animation() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    testCollisions();
-    moveAndDrawAllObjects();
-
     if(isPlaying) {
         if(!player.isDead()) {
+            testCollisions();
+            moveAndDrawAllObjects();
             requestAnimationFrame(animation);
         } 
         else {
@@ -120,6 +120,7 @@ function moveAndDrawAllObjects() {
     player.move();
     player.draw(ctx); 
     player.drawHearts(ctx);   
+    player.drawTotalCoins(ctx);
 }
 
 
