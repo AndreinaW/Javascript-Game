@@ -102,10 +102,11 @@ function loadLevels() {
 
 function animation() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    testCollisions();
+    moveAndDrawAllObjects();
+
     if(isPlaying) {
-        if(!player.isDead()) {
-            testCollisions();
-            moveAndDrawAllObjects();
+        if(!player.isDead()) {            
             requestAnimationFrame(animation);
         } 
         else {
