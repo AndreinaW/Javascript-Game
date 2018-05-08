@@ -28,6 +28,7 @@ function testCollisionsWallsPlayer(player) {
     if(player.pos_y > canvas.height) {    
         player.speedY = 0;
         player.setDead();
+        currentGameState = gameStates.gameOver;
     }
     // up wall
     else if(player.pos_y < 0){
@@ -99,7 +100,11 @@ function testCollisionsPlayerEnemies(player, level) {
     level.enemies.forEach((enemy) => {
         if(testCollisionPlayerObject(player, enemy)) {            
             playAudio("touched");
-            player.decreaseLife();            
+            player.decreaseLife();
+
+            if (player.isDead()) {
+                currentGameState = gameStates.gameOver;
+            }          
         }
         else if(testJumpOnEnemy(player, enemy)) {
             playAudio("enemy_killed");
@@ -107,7 +112,6 @@ function testCollisionsPlayerEnemies(player, level) {
 
             if(enemy.isDead()) {                
                 level.removeEnemy(enemy);
-                console.log("dead enemy");
             }
         }
     });
@@ -117,7 +121,11 @@ function testCollisionPlayerCoins(player, level){
         if(testCollisionPlayerObject(player,coin)){
             playAudio("coin_pickup");
             level.removeCoin(coin);
-            player.collected_coins++;
+            level.incrementCollectedCoins();
+
+            if(level.isCompleted()) {
+                currentGameState = gameStates.levelCompleted;
+            }
         }
     });
 }

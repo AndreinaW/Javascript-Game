@@ -1,12 +1,13 @@
-let COIN_SRC = {
-    star_coin: "images/coins.png"
-}
 
 function Coin(pos_x, pos_y,extra_space_left,extra_space_right) {
     let SPRITE_WIDTH = 36;
     let SPRITE_HEIGHT = 36;
     let NB_POSTURES = 1;
     let NB_FRAMES_PER_POSTURE = 6;
+
+    let COIN_SRC = {
+        star_coin: "images/coins.png"
+    }
 
     this.pos_x = pos_x;
     this.pos_y = pos_y;

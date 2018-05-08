@@ -3,7 +3,11 @@ function Level(environment) {
     this.platforms = [];
     this.enemies = [];
     this.coins = [];
-    this.nb_coins_for_level = 0;
+    this.total_coins = 0;
+    this.collected_coins = 0;
+
+    this.coinIcon = new Image();
+    this.coinIcon.src = "images/total_coins.png";
 
     this.addPlatform = function(p) {
         this.platforms.push(p);
@@ -29,6 +33,7 @@ function Level(environment) {
 
     this.addCoin = function(c) {
         this.coins.push(c);
+        this.total_coins++;
     }
 
 
@@ -48,11 +53,26 @@ function Level(environment) {
             coin.draw(ctx);
         });
 
+        this.drawTotalCoins(ctx);
+
         ctx.restore();
     }
 
 
-    this.isLevelCompleted = function() {
+    this.drawTotalCoins = function(ctx){
+        ctx.save();
+        ctx.drawImage(this.coinIcon,90,0);
+        ctx.font="16px Verdana";
+        ctx.fillText(this.collected_coins + "/"+ this.total_coins,115,16);
+        ctx.restore();
+    }
+
+
+    this.incrementCollectedCoins = function() {
+        this.collected_coins++;
+    }
+
+    this.isCompleted = function() {
         return this.coins.length === 0;
     }
 }

@@ -1,14 +1,18 @@
-let HEART_SRC = {
-    heart_full: "images/heart.png",
-    heart_empty: "images/heart_lost.png"
-}
 
-function Player(spritesheetSrc, pos_x, pos_y) {
+
+function Player(pos_x, pos_y) {
     let SPRITE_WIDTH = 36;
     let SPRITE_HEIGHT = 36;
     let NB_POSTURES = 4;
     let NB_FRAMES_PER_POSTURE = 3;
     let MAX_LIFE = 3;
+
+    let HEART_SRC = {
+        heart_full: "images/heart.png",
+        heart_empty: "images/heart_lost.png"
+    }
+    let PLAYER_SPRITESHEET_URL = "images/player_skin.png";
+
     this.extra_space_left = 6;//free space from left of player image
     this.extra_space_right = 12;//free space from right of player image
 
@@ -24,16 +28,13 @@ function Player(spritesheetSrc, pos_x, pos_y) {
     this.jumped = false;
     this.jump_speed = 10; 
     this.move_dir = {};
-    this.collected_coins = 0;
+    
     this.life_heart = {
         full: new Image(),
         empty: new Image()
     }
     this.life_heart.full.src = HEART_SRC.heart_full;
     this.life_heart.empty.src = HEART_SRC.heart_empty;
-
-    this.total_coins = new Image();
-    this.total_coins.src = "images/total_coins.png";
 
     // Sprites attributes
     this.sprite_left = 1;   //row of spritesheet
@@ -43,7 +44,7 @@ function Player(spritesheetSrc, pos_x, pos_y) {
 
     this.sprites = [];
     this.spritesheet = new Image();
-    this.spritesheet.src = spritesheetSrc;
+    this.spritesheet.src = PLAYER_SPRITESHEET_URL;
     this.current_sprite = this.sprite_front;
     
     this.reset = function(pos_x, pos_y) {      
@@ -55,7 +56,6 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         this.on_the_ground = false;
         this.jumped = false;
         this.jump_speed = 10;
-        this.collected_coins = 0;
 
         this.current_sprite = this.sprite_front;
     }
@@ -82,12 +82,6 @@ function Player(spritesheetSrc, pos_x, pos_y) {
         ctx.restore();
     }
 
-    this.drawTotalCoins = function(ctx){
-        ctx.save();
-        ctx.drawImage(this.total_coins,0,20);
-        ctx.fillText(this.collected_coins + "/"+getCurrentLevel().nb_coins_for_level,20,35);
-        ctx.restore();
-    }
 
     this.move = function() 
     {    

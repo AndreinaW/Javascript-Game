@@ -8,14 +8,14 @@
             [
             {
                 "posX" : 0,
-                "posY" : 380,
+                "posY" : 385,
                 "width" : 300,
                 "height" : 20,
                 "type" : "platform_1"
             },
             {
                 "posX" : 500,
-                "posY" : 380,
+                "posY" : 385,
                 "width" : 300,
                 "height" : 20,
                 "type" : "platform_1"
@@ -68,33 +68,25 @@
                     "posX" : 0,
                     "posY" : 184,
                     "type" : "enemy_1",
-                    "max_x":230,
-                    "extra_space_left": 10,
-                    "extra_space_right":20
+                    "max_x":230
                 },
                 {
                     "posX" : 550,
                     "posY" : 184,
                     "type" : "enemy_2",
-                    "max_x":790,
-                    "extra_space_left": 12,
-                    "extra_space_right":20
+                    "max_x":790
                 },
                 {
                     "posX" : 200,
                     "posY" : 44,
                     "type" : "enemy_3",
-                    "max_x":550,
-                    "extra_space_left": 5,
-                    "extra_space_right":10
+                    "max_x":550
                 },
                 {
                     "posX" : 200,
                     "posY" : 0,
                     "type" : "enemy_4",
-                    "max_x":550,
-                    "extra_space_left": 0,
-                    "extra_space_right":5
+                    "max_x":550
                 }
             ],
             "coins":

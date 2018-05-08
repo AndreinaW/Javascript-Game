@@ -1,7 +1,5 @@
 window.onload = init;
 
-let PLAYER_SPRITESHEET_URL = "images/player_skin.png";
-
 let canvas, ctx, player;
 
 // spritesheet to load and loaded. When they are the same we can call requestAnimationFrame()
@@ -12,7 +10,15 @@ let num_spritesheet_loaded = 0;
 let levels = [];
 let current_level = 0;
 
-let isPlaying = true;
+// game states
+let gameStates = {
+    playing: 0,
+    paused: 1,
+    gameOver: 2,
+    levelCompleted: 3,
+    restarted: 4
+};
+let currentGameState = gameStates.playing;
 
 //audio
 let game_audio_theme,jump_audio,enemy_killed_audio,coin_pickup_audio,player_touched_audio;
@@ -21,13 +27,12 @@ let mute_audio = false;
 
 function init() {
     console.log("page loaded");
-    addAllButtonsClickListeners();
-
     canvas = document.querySelector("#canvas");
     ctx = canvas.getContext("2d");
+    addListeners();
+    loadLevels();
     loadMusic();
     loadPlayer();
-    loadLevels();
     playAudio("theme");
 }
 
@@ -42,7 +47,7 @@ function loadMusic() {
 
 
 function loadPlayer() { 
-    player = new Player(PLAYER_SPRITESHEET_URL,0,344);
+    player = new Player(0,344);
     player.spritesheet.onload = function() {
         player.initSprites();      
         num_spritesheet_loaded++;
@@ -65,15 +70,13 @@ function loadLevels() {
 
             // load enemies
             lvl.allEnemies.forEach(enemy => {
-                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY, enemy.max_x,
-                                            enemy.extra_space_left,enemy.extra_space_right));           
+                level.addEnemy(new Enemy(enemy.type, enemy.posX, enemy.posY, enemy.max_x));           
                 num_spritesheet++;
             });
 
             // load coins
             lvl.coins.forEach(coin => {
-                level.addCoin(new Coin(coin.posX, coin.posY,0,0));
-                level.nb_coins_for_level++;        
+                level.addCoin(new Coin(coin.posX, coin.posY,0,0));   
                 num_spritesheet++;
             });            
 
@@ -83,7 +86,9 @@ function loadLevels() {
                 enemy.spritesheet.onload = function() {
                     enemy.initSprites();   
                     num_spritesheet_loaded++;
-                    startGame();            // ERASE
+                    if(currentGameState == gameStates.restarted) {
+                        startGame();
+                    }
                 }
             });
 
@@ -91,7 +96,9 @@ function loadLevels() {
                 coin.spritesheet.onload = function() {
                     coin.initSprites();   
                     num_spritesheet_loaded++;
-                    startGame();            // ERASE or change for a loading in start page
+                    if(currentGameState == gameStates.restarted) {
+                        startGame();
+                    }
                 }
             });
             i++;
@@ -105,29 +112,37 @@ function animation() {
     testCollisions();
     moveAndDrawAllObjects();
 
-    if(isPlaying) {
-        if(!player.isDead()) {            
+    switch (currentGameState) {
+        case gameStates.playing:
             requestAnimationFrame(animation);
-        } 
-        else {
+            break;
+
+        case gameStates.gameOver:
             gameOver();
-        }
+            break;
+
+        case gameStates.levelCompleted:
+            //requestAnimationFrame(animation);
+            levelCompleted();
+            break;
     }
 }
 
 
 function moveAndDrawAllObjects() {
     getCurrentLevel().moveAndDrawElements(ctx);
-    player.move();
+   // if(currentGameState != gameStates.levelCompleted) {
+        player.move();
+    //}
     player.draw(ctx); 
     player.drawHearts(ctx);   
-    player.drawTotalCoins(ctx);
 }
 
 
 function startGame() {
     if((num_spritesheet_loaded == num_spritesheet)) {
-        requestAnimationFrame(animation);
+        currentGameState = gameStates.playing;
+        requestAnimationFrame(animation);        
     }
 }
 
@@ -135,21 +150,26 @@ function startGame() {
 function restartGame() {
     num_spritesheet = 0;
     num_spritesheet_loaded = 0;
-    isPlaying = true;
-    mute_audio = false;
     current_level = 0;
     levels.length = 0;
     loadLevels();
     player.reset(0, 334);
-    startGame();
+    currentGameState = gameStates.restarted;
 }
 
 
 function gameOver() {
-    document.querySelector("#popup").style =  "display: block;";
+    changeDisplay(document.querySelector("#popup"), "flex");
+    changeDisplay(document.querySelector("#bt_restart"), "block");
     document.querySelector("#popup_title").innerHTML =  "Game Over!";
 }
 
+
+function levelCompleted() {
+    changeDisplay(document.querySelector("#popup"), "flex");
+    changeDisplay(document.querySelector("#bt_restart"), "none");
+    document.querySelector("#popup_title").innerHTML =  "You did it!";
+}
 
 function getCurrentLevel() {
     return levels[current_level];
@@ -181,4 +201,19 @@ function playAudio(subject) {
     }
     if(mute_audio)
         game_audio_theme.pause();
+}
+
+
+function changeDisplay(element, type) {
+    switch (type) {
+        case "none":
+            element.style =  "display: none;";
+            break;
+        case "block":
+            element.style =  "display: block;";
+            break;
+        case "flex":
+            element.style =  "display: flex;";
+            break;
+    }
 }

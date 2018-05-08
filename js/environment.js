@@ -1,11 +1,11 @@
-let CLOUDS_SRC = "images/cloud.png";
-let BACKGROUND_SRC = {
-    bckgd_1: "images/bg_lvl_1.png",
-    bckgd_2: "images/background_2.png"
-}
-
 
 function Environment(type) {
+    let CLOUDS_SRC = "images/cloud.png";
+    let BACKGROUND_SRC = {
+        bckgd_1: "images/bg_lvl_1.png",
+        bckgd_2: "images/background_2.png"
+    }
+
     this.bg_skin = new Image();
     this.bg_skin.src = BACKGROUND_SRC[type];
 
