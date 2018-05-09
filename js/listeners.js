@@ -21,7 +21,6 @@ function addStartClickListener() {
 function addRestartClickListener() {
   document.querySelector("#bt_restart").addEventListener('click', function(event) {
     changeDisplay(document.querySelector("#popup"), "none");
-    document.querySelector("#popup").style =  "display: none;";
     restartGame();
   });
 }
@@ -32,12 +31,10 @@ function addAudioOnOffClickListener() {
   bt.addEventListener('click', function(event) {
     mute_audio = !mute_audio; 
     if(!mute_audio) {
-      bt.classList.add("bt_audioOn");
-      bt.classList.remove("bt_audioOff");
+      addRemoveCssClass(bt, "bt_audioOn", "bt_audioOff");
     } 
     else {
-      bt.classList.add("bt_audioOff");
-      bt.classList.remove("bt_audioOn");
+      addRemoveCssClass(bt, "bt_audioOff", "bt_audioOn");
     }
     playAudio("theme");   
   });
@@ -52,30 +49,21 @@ function addPlayPauseClickListener() {
   {
     // pause
     if(currentGameState ==  gameStates.playing) { 
-      bt_play.classList.add("bt_play");
-      bt_play.classList.remove("bt_pause");
+      addRemoveCssClass(bt_play, "bt_play", "bt_pause");
       mute_audio = true;
+      addRemoveCssClass(bt_audio, "bt_audioOff", "bt_audioOn");
       currentGameState = gameStates.paused;
     } 
     // plays
     else {
-      bt_play.classList.add("bt_pause");
-      bt_play.classList.remove("bt_play");      
+      addRemoveCssClass(bt_play, "bt_pause", "bt_play");
       mute_audio = false;
+      addRemoveCssClass(bt_audio, "bt_audioOn", "bt_audioOff");
       currentGameState = gameStates.playing;
       requestAnimationFrame(animation);
     }
     
-    if(!mute_audio) {
-      bt_audio.classList.add("bt_audioOn");
-      bt_audio.classList.remove("bt_audioOff");
-      playAudio("theme");
-    } 
-    else {
-      bt_audio.classList.add("bt_audioOff");
-      bt_audio.classList.remove("bt_audioOn");
-      game_audio_theme.pause();      
-    }
+    playAudio("theme");
   });
 }
 
@@ -104,10 +92,12 @@ function addKeysListeners()
           player.on_the_ground = false;
           player.jumped = true;
           playAudio("jump");
+          console.log("single");
         }
         else if(player.jumped) {      // double jump
           player.move_dir.up = true;
           player.jumped = false;
+          console.log("double");
         } 
         else {
           player.move_dir.up = false;
@@ -141,15 +131,19 @@ function addKeysListeners()
       let bt = document.querySelector("#bt_audioOnOff");
         mute_audio = !mute_audio; 
         if(!mute_audio) {
-          bt.classList.add("bt_audioOn");
-          bt.classList.remove("bt_audioOff");
+          addRemoveCssClass(bt, "bt_audioOn", "bt_audioOff");
         } 
         else {
-          bt.classList.add("bt_audioOff");
-          bt.classList.remove("bt_audioOn");
+          addRemoveCssClass(bt, "bt_audioOff", "bt_audioOn");
         }
         playAudio("theme");
         break; 
     }
   }, false);
+}
+
+
+function addRemoveCssClass(element, addClass, removeClass) {
+  element.classList.add(addClass);
+  element.classList.remove(removeClass);
 }

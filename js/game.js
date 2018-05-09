@@ -9,6 +9,7 @@ let num_spritesheet_loaded = 0;
 // levels
 let levels = [];
 let current_level = 0;
+let fireworks = new Fireworks();
 
 // game states
 let gameStates = {
@@ -21,7 +22,7 @@ let gameStates = {
 let currentGameState = gameStates.playing;
 
 //audio
-let game_audio_theme,jump_audio,enemy_killed_audio,coin_pickup_audio,player_touched_audio;
+let sound = {};
 let mute_audio = false;
 
 
@@ -38,12 +39,26 @@ function init() {
 
 
 function loadMusic() {
-    game_audio_theme = new Audio("audio/gameTheme.mp3");
-    jump_audio = new Audio("audio/jump.wav");
-    enemy_killed_audio = new Audio("audio/enemy_killed.wav");
-    coin_pickup_audio = new Audio("audio/coin_pickup.wav");
-    player_touched_audio = new Audio("audio/player_touched.mp3");    
+    sound = {
+        theme: new Howl({
+                    src: ['audio/gameTheme.mp3'],
+                    loop: true,
+                    volume: 0.5
+                }),
+        jump: new Howl({src: ['audio/jump.wav']}),
+        player_hit: new Howl({src: ['audio/player_hit.mp3']}),
+        player_falls: new Howl({
+                            src: ['audio/player_falls.mp3'],
+                            volume: 0.2
+                        }),
+        enemy_hit: new Howl({src: ['audio/enemy_killed.wav']}),
+        coin_pickup: new Howl({src: ['audio/coin_pickup.wav']}),
+        fireworks: new Howl({src: ['audio/firework.mp3']}),
+        game_over: new Howl({src: ['audio/game_over.mp3']}),
+        game_over_bckg: new Howl({src: ['audio/game_over_bckg.mp3']})        
+    }
 }
+
 
 
 function loadPlayer() { 
@@ -107,10 +122,13 @@ function loadLevels() {
 }
 
 
-function animation() {
+function animation(time) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    testCollisions();
-    moveAndDrawAllObjects();
+
+    if(currentGameState != gameStates.restarted) {
+        testCollisions();
+        moveAndDrawAllObjects();
+    }
 
     switch (currentGameState) {
         case gameStates.playing:
@@ -122,18 +140,19 @@ function animation() {
             break;
 
         case gameStates.levelCompleted:
-            //requestAnimationFrame(animation);
-            levelCompleted();
-            break;
+            fireworks.moveAndDraw(ctx, time);
+            levelCompleted();            
+            requestAnimationFrame(animation);
+            break;        
     }
 }
 
 
 function moveAndDrawAllObjects() {
     getCurrentLevel().moveAndDrawElements(ctx);
-   // if(currentGameState != gameStates.levelCompleted) {
+    if(currentGameState == gameStates.playing) {
         player.move();
-    //}
+    }
     player.draw(ctx); 
     player.drawHearts(ctx);   
 }
@@ -141,6 +160,7 @@ function moveAndDrawAllObjects() {
 
 function startGame() {
     if((num_spritesheet_loaded == num_spritesheet)) {
+        playAudio("theme");
         currentGameState = gameStates.playing;
         requestAnimationFrame(animation);        
     }
@@ -148,13 +168,15 @@ function startGame() {
 
 
 function restartGame() {
+    currentGameState = gameStates.restarted;
     num_spritesheet = 0;
     num_spritesheet_loaded = 0;
     current_level = 0;
     levels.length = 0;
     loadLevels();
     player.reset(0, 334);
-    currentGameState = gameStates.restarted;
+    fireworks.reset();
+    stopAllSounds();
 }
 
 
@@ -162,14 +184,39 @@ function gameOver() {
     changeDisplay(document.querySelector("#popup"), "flex");
     changeDisplay(document.querySelector("#bt_restart"), "block");
     document.querySelector("#popup_title").innerHTML =  "Game Over!";
+    playAudio("game_over");
 }
 
 
 function levelCompleted() {
-    changeDisplay(document.querySelector("#popup"), "flex");
-    changeDisplay(document.querySelector("#bt_restart"), "none");
-    document.querySelector("#popup_title").innerHTML =  "You did it!";
+    if(!fireworks.isActive) {
+        changeDisplay(document.querySelector("#popup"), "flex");
+
+        // if there's a next level or if it is the end of the game
+        if(current_level + 1 < levels.length) {
+            document.querySelector("#popup_title").innerHTML =  "You did it!";
+            changeDisplay(document.querySelector("#bt_restart"), "none");
+        }
+        else {
+            document.querySelector("#popup_title").innerHTML =  "Congrats!<br/>You finished the game!";   
+            changeDisplay(document.querySelector("#bt_restart"), "block");
+        }
+
+        fireworks.startFireworks(canvas.width, canvas.height);
+    }
+    else if(fireworks.hasFinished) {
+        
+        // if there's another level
+        if(current_level + 1 < levels.length) {            
+            changeDisplay(document.querySelector("#popup"), "none");
+            current_level++;
+            fireworks.reset();    
+            player.reset(0, 324);
+            currentGameState = gameStates.playing;
+        }
+    }
 }
+
 
 function getCurrentLevel() {
     return levels[current_level];
@@ -180,27 +227,46 @@ function playAudio(subject) {
     if(!mute_audio) {
         switch (subject) {
             case "theme":
-                game_audio_theme.loop = true;
-                game_audio_theme.play();
+                if(!sound.theme.playing())
+                    sound.theme.play();
                 break;
             case "jump":
-                jump_audio.play();
+                if(currentGameState == gameStates.playing)
+                    sound.jump.play();
                 break;
-            case "touched":
-                player_touched_audio.play();
+            case "player_hit":
+                if(!sound.player_hit.playing())
+                    sound.player_hit.play();
+                break;
+            case "player_falls":
+                sound.player_falls.play();
                 break;
             case "enemy_killed":
-                enemy_killed_audio.play();
+                sound.enemy_hit.play();
                 break;
             case "coin_pickup":
-                coin_pickup_audio.play();
+                sound.coin_pickup.play();
                 break;
-            default:
+            case "fireworks":
+                sound.fireworks.play();
+                break;            
+            case "game_over":
+                sound.theme.stop();
+                sound.game_over_bckg.play();
+                sound.game_over.play();
                 break;
         }
     }
-    if(mute_audio)
-        game_audio_theme.pause();
+    else {
+        sound.theme.pause();
+    }
+}
+
+
+function stopAllSounds() {
+    for(var s in sound) {
+        sound[s].stop();
+    }
 }
 
 

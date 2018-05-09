@@ -25,7 +25,8 @@ function testCollisionsWallsPlayer(player) {
 
 
     // down wall. It's a hole, he dies if he falls into it
-    if(player.pos_y > canvas.height) {    
+    if(player.pos_y > canvas.height) { 
+        playAudio("player_falls");   
         player.speedY = 0;
         player.setDead();
         currentGameState = gameStates.gameOver;
@@ -99,7 +100,7 @@ function testCollisionsPlatformsPlayer(r, platforms){
 function testCollisionsPlayerEnemies(player, level) {
     level.enemies.forEach((enemy) => {
         if(testCollisionPlayerObject(player, enemy)) {            
-            playAudio("touched");
+            playAudio("player_hit");
             player.decreaseLife();
 
             if (player.isDead()) {

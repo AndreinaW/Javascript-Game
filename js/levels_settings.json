@@ -94,14 +94,6 @@
             {
                 "posX" : 385,
                 "posY" : 260
-            },
-            {
-                "posX" : 0,
-                "posY" : 100
-            },
-            {
-                "posX" : 770,
-                "posY" : 100
             }]
         },
         {
@@ -109,6 +101,13 @@
             "bckgd_type" : "bckgd_1",
             "bricks":
             [
+                {
+                "posX" : 0,
+                "posY" : 385,
+                "width" : 100,
+                "height" : 20,
+                "type" : "platform_1"
+                },
                 {
                     "posX" : 0,
                     "posY" : 0,
@@ -150,7 +149,7 @@
             "coins":
             [
             {
-                "posX" : 0,
+                "posX" : 30,
                 "posY" : 300
             },
             {
