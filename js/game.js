@@ -183,7 +183,10 @@ function restartGame() {
 function gameOver() {
     changeDisplay(document.querySelector("#popup"), "flex");
     changeDisplay(document.querySelector("#bt_restart"), "block");
-    document.querySelector("#popup_title").innerHTML =  "Game Over!";
+    var title = document.querySelector("#popup_title");
+    title.classList.add("big_font");
+    title.classList.remove("small_font");
+    title.innerHTML =  "Game Over!";
     playAudio("game_over");
 }
 
@@ -192,13 +195,19 @@ function levelCompleted() {
     if(!fireworks.isActive) {
         changeDisplay(document.querySelector("#popup"), "flex");
 
+        var title = document.querySelector("#popup_title");
+
         // if there's a next level or if it is the end of the game
         if(current_level + 1 < levels.length) {
-            document.querySelector("#popup_title").innerHTML =  "You did it!";
+            title.classList.add("big_font");
+            title.classList.remove("small_font");
+            title.innerHTML =  "You did it!";
             changeDisplay(document.querySelector("#bt_restart"), "none");
         }
         else {
-            document.querySelector("#popup_title").innerHTML =  "Congrats!<br/>You finished the game!";   
+            title.classList.add("small_font");
+            title.classList.remove("big_font");
+            title.innerHTML =  "Congrats!<br/>You finished the game!";   
             changeDisplay(document.querySelector("#bt_restart"), "block");
         }
 
