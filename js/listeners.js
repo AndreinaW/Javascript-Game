@@ -28,15 +28,18 @@ function addRestartClickListener() {
 
 function addAudioOnOffClickListener() { 
   let bt = document.querySelector("#bt_audioOnOff");
-  bt.addEventListener('click', function(event) {
-    mute_audio = !mute_audio; 
-    if(!mute_audio) {
-      addRemoveCssClass(bt, "bt_audioOn", "bt_audioOff");
-    } 
-    else {
-      addRemoveCssClass(bt, "bt_audioOff", "bt_audioOn");
+  bt.addEventListener('click', function(event) 
+  {
+    if(currentGameState !=  gameStates.gameOver) {
+      mute_audio = !mute_audio; 
+      if(!mute_audio) {
+        addRemoveCssClass(bt, "bt_audioOn", "bt_audioOff");
+      } 
+      else {
+        addRemoveCssClass(bt, "bt_audioOff", "bt_audioOn");
+      }
+      playAudio("theme");   
     }
-    playAudio("theme");   
   });
 }
 
@@ -50,20 +53,20 @@ function addPlayPauseClickListener() {
     // pause
     if(currentGameState ==  gameStates.playing) { 
       addRemoveCssClass(bt_play, "bt_play", "bt_pause");
-      mute_audio = true;
       addRemoveCssClass(bt_audio, "bt_audioOff", "bt_audioOn");
+      mute_audio = true;
+      playAudio("theme");
       currentGameState = gameStates.paused;
     } 
     // plays
-    else {
+    else if(currentGameState == gameStates.paused) {
       addRemoveCssClass(bt_play, "bt_pause", "bt_play");
-      mute_audio = false;
       addRemoveCssClass(bt_audio, "bt_audioOn", "bt_audioOff");
+      mute_audio = false;
+      playAudio("theme");
       currentGameState = gameStates.playing;
       requestAnimationFrame(animation);
     }
-    
-    playAudio("theme");
   });
 }
 
