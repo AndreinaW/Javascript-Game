@@ -8,7 +8,7 @@ let num_spritesheet_loaded = 0;
 
 // levels
 let levels = [];
-let current_level = 2;
+let current_level = 0;
 let fireworks = new Fireworks();
 
 // game states
