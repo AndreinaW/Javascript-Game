@@ -16,8 +16,7 @@
 
 #startScreen{
 	width: 100%;
-	/*display: flex;*/
-	display: none;
+	display: flex;
 	flex-direction: column;
 	align-items: center;
 	background: url("../images/bckg_start.png") repeat;
@@ -49,8 +48,7 @@
 
 
 #gameScreen {
-  /*display: none;*/
-  display: block;
+  display: none;
   background-color:#e5e5e5;
   padding: 10px;
   padding-bottom: 6px;

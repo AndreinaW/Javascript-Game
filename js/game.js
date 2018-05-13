@@ -45,14 +45,17 @@ function loadMusic() {
                     loop: true,
                     volume: 0.4
                 }),
-        jump: new Howl({src: ['audio/jump.wav']}),
+        jump: new Howl({
+                    src: ['audio/jump.wav'],
+                    volume: 0.5
+                    }),
         player_hit: new Howl({
                         src: ['audio/player_hit.mp3'],
-                        volume: 0.6
+                        volume: 1
                     }),
         player_falls: new Howl({
                             src: ['audio/player_falls.mp3'],
-                            volume: 0.3,
+                            volume: 0.4,
                             sprite: {
                                 fall: [200, 700]
                             },
@@ -110,9 +113,9 @@ function loadLevels() {
                 enemy.spritesheet.onload = function() {
                     enemy.initSprites();   
                     num_spritesheet_loaded++;
-                    //if(currentGameState == gameStates.restarted) {
+                    if(currentGameState == gameStates.restarted) {
                         startGame();
-                    //}
+                    }
                 }
             });
 
@@ -120,9 +123,9 @@ function loadLevels() {
                 coin.spritesheet.onload = function() {
                     coin.initSprites();   
                     num_spritesheet_loaded++;
-                    //if(currentGameState == gameStates.restarted) {
+                    if(currentGameState == gameStates.restarted) {
                         startGame();
-                   // }
+                    }
                 }
             });
             i++;
@@ -177,10 +180,12 @@ function startGame() {
 
 
 function restartGame() {
+    if(currentGameState != gameStates.gameOver) {
+        current_level = 0;
+    }
     currentGameState = gameStates.restarted;
     num_spritesheet = 0;
     num_spritesheet_loaded = 0;
-    current_level = 0;
     levels.length = 0;
     loadLevels();
     player.reset(0, 334);

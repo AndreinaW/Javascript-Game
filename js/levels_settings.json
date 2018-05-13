@@ -124,9 +124,9 @@
                     "type" : "platform_1"
                 },
                 {   
-                    "posX" : 400,
+                    "posX" : 380,
                     "posY" : 130,
-                    "width" : 100,
+                    "width" : 120,
                     "height" : 20,
                     "type" : "platform_1"
                 },
@@ -160,10 +160,10 @@
                     "max_x": 250
                 },
                 {
-                    "posX" : 400,
+                    "posX" : 370,
                     "posY" : 100,
                     "type" : "enemy_4",
-                    "max_x": 500
+                    "max_x": 480
                 }
             ],
             "coins":
@@ -258,7 +258,7 @@
                 },
                 {
                     "posX" : 480,
-                    "posY" : 135,
+                    "posY" : 125,
                     "type" : "enemy_4",
                     "max_x": 590
                 }
