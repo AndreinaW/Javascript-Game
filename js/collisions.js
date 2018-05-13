@@ -26,10 +26,16 @@ function testCollisionsWallsPlayer(player) {
 
     // down wall. It's a hole, he dies if he falls into it
     if(player.pos_y > canvas.height) { 
-        playAudio("player_falls");   
-        player.speedY = 0;
-        player.setDead();
-        currentGameState = gameStates.gameOver;
+        if(!player.hasFallen) {
+            playAudio("player_falls");
+            player.decreaseLife();
+
+            if (player.isDead()) {
+                currentGameState = gameStates.gameOver;
+            }          
+            player.hasFallen = true;
+            // the player is reset after the sound finishes
+        }
     }
     // up wall
     else if(player.pos_y < 0){
@@ -97,29 +103,20 @@ function testCollisionsPlatformsPlayer(r, platforms){
 }
 
 
-function testCollisionsPlayerEnemies(player, level) {
-    level.enemies.forEach((enemy) => {
-        if(testCollisionPlayerObject(player, enemy)) {            
-            playAudio("player_hit");
-            player.decreaseLife();
-
-            if (player.isDead()) {
-                currentGameState = gameStates.gameOver;
-            }          
-        }
-        else if(testJumpOnEnemy(player, enemy)) {
-            playAudio("enemy_killed");
-            enemy.decreaseLife();
-
-            if(enemy.isDead()) {                
-                level.removeEnemy(enemy);
-            }
-        }
-    });
+function testCollisionPlayerCoin(p, c){
+    //objects character collision function
+    if((p.pos_y + p.height < c.pos_y ) ||
+        (p.pos_y > c.pos_y + c.height) ||
+        (p.pos_x > c.pos_x + c.width) ||
+        (p.pos_x + p.width < c.pos_x)){
+            return false;
+    }
+    return true;
 }
+
 function testCollisionPlayerCoins(player, level){
     level.coins.forEach((coin) => {
-        if(testCollisionPlayerObject(player,coin)){
+        if(testCollisionPlayerCoin(player,coin)){
             playAudio("coin_pickup");
             level.removeCoin(coin);
             level.incrementCollectedCoins();
@@ -129,25 +126,6 @@ function testCollisionPlayerCoins(player, level){
             }
         }
     });
-}
-
-function testCollisionPlayerObject(p, e){
-    var crash = true;
-    //objects character collision function
-    if((p.pos_y + p.height < e.pos_y ) ||
-        (p.pos_y > e.pos_y + e.height) ||
-        (p.pos_x > e.pos_x + e.width) ||
-        (p.pos_x + p.width < e.pos_x)){
-            crash = false;
-        }/*
-    else{
-        e.speedX = -e.speedX;
-        if(e.pos_x < p.pos_x + p.width)
-            p.pos_x = e.pos_x + e.width + 2*p.width;
-        else
-            p.pos_x = e.pos_x - 2*p.width;
-    }*/
-    return crash;
 }
 
 function testJumpOnEnemy(p, e){
@@ -162,4 +140,47 @@ function testJumpOnEnemy(p, e){
             jumpedOn = true;
         }
     return jumpedOn;
+}
+
+function testCollisionPlayerEnemy(p, e){
+    //objects character collision function
+    if((p.pos_y + p.height < e.pos_y ) ||
+        (p.pos_y > e.pos_y + e.height) ||
+        (p.pos_x > e.pos_x + e.width) ||
+        (p.pos_x + p.width < e.pos_x)){
+            return false;
+        }
+    else{
+        e.speedX = -e.speedX;
+        if(e.pos_x < p.pos_x + p.width) {
+            p.pos_x = e.pos_x + e.width + 2*p.width;
+            p.pos_y = p.pos_y - p.height/2;
+        }
+        else {
+            p.pos_x = e.pos_x - 2*p.width;
+            p.pos_y = p.pos_y - p.height/2;
+        }
+    }
+    return true;
+}
+
+function testCollisionsPlayerEnemies(player, level) {
+    level.enemies.forEach((enemy) => {
+        if(testJumpOnEnemy(player, enemy)) {
+            playAudio("enemy_killed");
+            enemy.decreaseLife();
+
+            if(enemy.isDead()) {                
+                level.removeEnemy(enemy);
+            }
+        }
+        else if(currentGameState == gameStates.playing && testCollisionPlayerEnemy(player, enemy)) {
+            playAudio("player_hit");
+            player.decreaseLife();
+
+            if (player.isDead()) {
+                currentGameState = gameStates.gameOver;
+            }          
+        }        
+    });
 }

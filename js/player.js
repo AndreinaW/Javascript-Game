@@ -28,6 +28,7 @@ function Player(pos_x, pos_y) {
     this.jumped = false;
     this.jump_speed = 10; 
     this.move_dir = {};
+    this.hasFallen = false;
     
     this.life_heart = {
         full: new Image(),
@@ -55,7 +56,19 @@ function Player(pos_x, pos_y) {
         this.life = MAX_LIFE;
         this.on_the_ground = false;
         this.jumped = false;
-        this.jump_speed = 10;
+        this.hasFallen = false;
+
+        this.current_sprite = this.sprite_front;
+    }
+
+    this.resetAfterFall = function(pos_x, pos_y) {      
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+        this.speedX = 0;
+        this.speedY = 0;
+        this.on_the_ground = false;
+        this.jumped = false;
+        this.hasFallen = false;
 
         this.current_sprite = this.sprite_front;
     }

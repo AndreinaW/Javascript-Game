@@ -8,7 +8,7 @@ let num_spritesheet_loaded = 0;
 
 // levels
 let levels = [];
-let current_level = 0;
+let current_level = 2;
 let fireworks = new Fireworks();
 
 // game states
@@ -43,13 +43,22 @@ function loadMusic() {
         theme: new Howl({
                     src: ['audio/gameTheme.mp3'],
                     loop: true,
-                    volume: 0.5
+                    volume: 0.4
                 }),
         jump: new Howl({src: ['audio/jump.wav']}),
-        player_hit: new Howl({src: ['audio/player_hit.mp3']}),
+        player_hit: new Howl({
+                        src: ['audio/player_hit.mp3'],
+                        volume: 0.6
+                    }),
         player_falls: new Howl({
                             src: ['audio/player_falls.mp3'],
-                            volume: 0.2
+                            volume: 0.3,
+                            sprite: {
+                                fall: [200, 700]
+                            },
+                            onend: function() {
+                                player.resetAfterFall(0, 334);
+                            }
                         }),
         enemy_hit: new Howl({src: ['audio/enemy_killed.wav']}),
         coin_pickup: new Howl({src: ['audio/coin_pickup.wav']}),
@@ -101,9 +110,9 @@ function loadLevels() {
                 enemy.spritesheet.onload = function() {
                     enemy.initSprites();   
                     num_spritesheet_loaded++;
-                    if(currentGameState == gameStates.restarted) {
+                    //if(currentGameState == gameStates.restarted) {
                         startGame();
-                    }
+                    //}
                 }
             });
 
@@ -111,9 +120,9 @@ function loadLevels() {
                 coin.spritesheet.onload = function() {
                     coin.initSprites();   
                     num_spritesheet_loaded++;
-                    if(currentGameState == gameStates.restarted) {
+                    //if(currentGameState == gameStates.restarted) {
                         startGame();
-                    }
+                   // }
                 }
             });
             i++;
@@ -248,7 +257,7 @@ function playAudio(subject) {
                     sound.player_hit.play();
                 break;
             case "player_falls":
-                sound.player_falls.play();
+                sound.player_falls.play("fall");
                 break;
             case "enemy_killed":
                 sound.enemy_hit.play();

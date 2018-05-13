@@ -95,12 +95,10 @@ function addKeysListeners()
           player.on_the_ground = false;
           player.jumped = true;
           playAudio("jump");
-          console.log("single");
         }
         else if(player.jumped) {      // double jump
           player.move_dir.up = true;
           player.jumped = false;
-          console.log("double");
         } 
         else {
           player.move_dir.up = false;

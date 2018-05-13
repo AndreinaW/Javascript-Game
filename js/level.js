@@ -1,4 +1,9 @@
 function Level(environment) {
+    let COIN_ICON_SRC = {
+        not_collected: "images/total_coins.png",
+        collected: "images/coins_collected.png"        
+    }
+
     this.environment = environment;
     this.platforms = [];
     this.enemies = [];
@@ -6,8 +11,13 @@ function Level(environment) {
     this.total_coins = 0;
     this.collected_coins = 0;
 
-    this.coinIcon = new Image();
-    this.coinIcon.src = "images/total_coins.png";
+    this.coinIcon = {
+        not_collected: new Image(),
+        collected: new Image()
+    }
+    this.coinIcon.not_collected.src = COIN_ICON_SRC.not_collected;
+    this.coinIcon.collected.src = COIN_ICON_SRC.collected;
+
 
     this.addPlatform = function(p) {
         this.platforms.push(p);
@@ -59,12 +69,18 @@ function Level(environment) {
     }
 
 
-    this.drawTotalCoins = function(ctx){
+    this.drawTotalCoins = function(ctx) {    
+        let x = 80;
         ctx.save();
-        ctx.drawImage(this.coinIcon,90,0);
-        ctx.font="16px Verdana";
-        ctx.fillText(this.collected_coins + "/"+ this.total_coins,115,16);
-        ctx.restore();
+        for(let i = 0; i < this.total_coins ; i++) {
+            if(i < this.collected_coins) {
+                ctx.drawImage(this.coinIcon.collected, x, 0);
+            } else {
+                ctx.drawImage(this.coinIcon.not_collected, x, 0);
+            }             
+            x += 23;
+        }        
+        ctx.restore();    
     }
 
 

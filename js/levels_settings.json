@@ -3,7 +3,7 @@
     [
         {
             "lvl" : 1,
-            "bckgd_type" : "bckgd_2",
+            "bckgd_type" : "bckgd_1",
             "bricks":
             [
             {
@@ -80,81 +80,202 @@
                     "posX" : 200,
                     "posY" : 44,
                     "type" : "enemy_3",
-                    "max_x":550
+                    "max_x": 570
                 },
                 {
-                    "posX" : 200,
-                    "posY" : 0,
+                    "posX" : 340,
+                    "posY" : 265,
                     "type" : "enemy_4",
-                    "max_x":550
+                    "max_x": 430
                 }
             ],
             "coins":
             [
             {
-                "posX" : 385,
-                "posY" : 260
+                "posX" : 0,
+                "posY" : 180
+            },
+            {
+                "posX" : 760,
+                "posY" : 180
+            },
+            {
+                "posX" : 380,
+                "posY" : 20
             }]
         },
         {
             "lvl" :2,
-            "bckgd_type" : "bckgd_1",
+            "bckgd_type" : "bckgd_7",
             "bricks":
             [
                 {
-                "posX" : 0,
-                "posY" : 385,
-                "width" : 100,
-                "height" : 20,
-                "type" : "platform_1"
+                    "posX" : 0,
+                    "posY" : 381,
+                    "width" : 50,
+                    "height" : 20,
+                    "type" : "platform_1"
                 },
                 {
-                    "posX" : 0,
-                    "posY" : 0,
+                    "posX" : 180,
+                    "posY" : 260,
                     "width" : 100,
                     "height" : 20,
-                    "type" : "platform_2"
+                    "type" : "platform_1"
                 },
                 {   
-                    "posX" : 100,
-                    "posY" : 100,
+                    "posX" : 400,
+                    "posY" : 130,
                     "width" : 100,
                     "height" : 20,
-                    "type" : "platform_2"
+                    "type" : "platform_1"
+                },
+                {   
+                    "posX" : 520,
+                    "posY" : 360,
+                    "width" : 30,
+                    "height" : 30,
+                    "type" : "platform_1"
+                },
+                {   
+                    "posX" : 720,
+                    "posY" : 260,
+                    "width" : 50,
+                    "height" : 20,
+                    "type" : "platform_1"
                 }
 
             ],
             "allEnemies" : [
                 {
-                    "posX" : 100,
-                    "posY" : 350,
-                    "type" : "enemy_1"
+                    "posX" : 500,
+                    "posY" : 170,
+                    "type" : "enemy_2",
+                    "max_x": 750
                 },
                 {
-                    "posX" : 200,
-                    "posY" : 200,
-                    "type" : "enemy_2"
+                    "posX" : 0,
+                    "posY" : 120,
+                    "type" : "enemy_3",
+                    "max_x": 250
                 },
                 {
-                    "posX" : 320,
-                    "posY" : 320,
-                    "type" : "enemy_3"
-                },
-                {
-                    "posX" : 200,
-                    "posY" : 320,
-                    "type" : "enemy_3"
+                    "posX" : 400,
+                    "posY" : 100,
+                    "type" : "enemy_4",
+                    "max_x": 500
                 }
             ],
             "coins":
             [
             {
-                "posX" : 30,
-                "posY" : 300
+                "posX" : 0,
+                "posY" : 70
             },
             {
+                "posX" : 518,
+                "posY" : 270
+            },
+            {
+                "posX" : 750,
+                "posY" : 60
+            }]
+        },
+        {
+            "lvl" :3,
+            "bckgd_type" : "bckgd_5",
+            "bricks":
+            [
+                {
+                    "posX" : 0,
+                    "posY" : 381,
+                    "width" : 60,
+                    "height" : 20,
+                    "type" : "platform_1"
+                },
+                {
+                    "posX" : 230,
+                    "posY" : 381,
+                    "width" : 60,
+                    "height" : 20,
+                    "type" : "platform_1"
+                },
+                {
+                    "posX" : 480,
+                    "posY" : 381,
+                    "width" : 20,
+                    "height" : 20,
+                    "type" : "platform_1"
+                },
+                {
+                    "posX" : 680,
+                    "posY" : 300,
+                    "width" : 80,
+                    "height" : 30,
+                    "type" : "platform_3"
+                },
+                {
+                    "posX" : 750,
+                    "posY" : 100,
+                    "width" : 35,
+                    "height" : 30,
+                    "type" : "platform_3"
+                },
+                {   
+                    "posX" : 490,
+                    "posY" : 160,
+                    "width" : 120,
+                    "height" : 30,
+                    "type" : "platform_3"
+                },
+                {   
+                    "posX" : 300,
+                    "posY" : 140,
+                    "width" : 20,
+                    "height" : 30,
+                    "type" : "platform_4"
+                },
+                {   
+                    "posX" : 130,
+                    "posY" : 140,
+                    "width" : 20,
+                    "height" : 30,
+                    "type" : "platform_4"
+                }                
+            ],
+            "allEnemies" : [
+                {
+                    "posX" : 50,
+                    "posY" : 220,
+                    "type" : "enemy_2",
+                    "max_x": 750
+                },
+                {
+                    "posX" : 0,
+                    "posY" : 20,
+                    "type" : "enemy_3",
+                    "max_x": 350
+                },
+                {
+                    "posX" : 480,
+                    "posY" : 135,
+                    "type" : "enemy_4",
+                    "max_x": 590
+                }
+            ],
+            "coins":
+            [
+            {
                 "posX" : 0,
-                "posY" : 360
+                "posY" : 70
+            },
+            {
+                "posX" : 370,
+                "posY" : 140
+            },
+            {
+                "posX" : 750,
+                "posY" : 60
             }]
         }
     ]

@@ -15,22 +15,31 @@
 
 
 #startScreen{
-	height: 480px;
 	width: 100%;
-	display: flex;
+	/*display: flex;*/
+	display: none;
 	flex-direction: column;
 	align-items: center;
 	background: url("../images/bckg_start.png") repeat;
+	padding-top: 51%;
+	position: relative;
 }
 #startScreen > div {
-	margin: auto;
-    margin-top: 25px;
+	margin-top: -25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+#startScreen > div > img{
+	max-width: 100%;
 }
 #bt_start {
 	width: 100px;
   	height: 35px;
   	margin: auto;
-  	margin-top: 20px;
+  	margin-top: 10px;
 	background-image: url("../images/bt_start.png");
 }
 #bt_start:hover {
@@ -40,7 +49,8 @@
 
 
 #gameScreen {
-  display: none;
+  /*display: none;*/
+  display: block;
   background-color:#e5e5e5;
   padding: 10px;
   padding-bottom: 6px;

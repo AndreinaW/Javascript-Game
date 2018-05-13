@@ -2,8 +2,14 @@
 function Environment(type) {
     let CLOUDS_SRC = "images/cloud.png";
     let BACKGROUND_SRC = {
-        bckgd_1: "images/bg_lvl_1.png",
-        bckgd_2: "images/background_2.png"
+        bckgd_1: "images/background_1.png",
+        bckgd_2: "images/background_2.png",
+        bckgd_3: "images/background_3.png",
+        bckgd_4: "images/background_4.png",
+        bckgd_5: "images/background_5.png",
+        bckgd_6: "images/background_6.png",
+        bckgd_7: "images/background_7.png",
+        bckgd_8: "images/background_8.png"
     }
 
     this.bg_skin = new Image();
