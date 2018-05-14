@@ -1,42 +1,56 @@
-# ProjetJavascript
-TODO:
+Javascript Game: Korg's Adventure
+========
+###### Web 2.0 - Master 1 IFI, Université Nice Sophia-Antipolis - 2017/2018
 
+Le joueur contrôle le petit bonhomme appelé Korg et le but du jeu c'est passer de niveau en collectant toutes les monnaies sans se fait tuer par les ennemis.
 
-- ver porque error cuando restart de juego termiando
-- ameliorer ecran de start... peut etre image background
-- faire 3 ou 4 niveaux differents, de facil a dificil
+## Caractéristiques du jeu
+#### Joueur:
+* Il peut se déplacer à gauche et à droite.
+* Il peut sauter et faire de double sautes aussi.
+* Il possède trois vies par niveau.
+* Il perd de vie lorsqu'il collisionne avec un ennemi ou il tombe dans un trou.
 
+#### Ennemis:
+* Ils se déplacent horizontalement d'un côté à l'autre dans une distance fixe.
+* Ils possèdent deux vies.
+* Ils perdent de vie lorsque le joueur saut dessus eux.
 
-- corriger les collisions
+#### Niveaux:
+* Un niveau est passé lorsque le joueur collecte toutes les monnaies et a au moins une vie.
+* Un niveau est perdu lorsque le joueur n'a plus de vie.
+  
+## Points forts
+#### Gestion des niveaux: 
+* Chaque niveau contient diffèrent plateformes, ennemis et monnaies.
+* Tous les niveaux sont définis dans un fichier JSON qui permet de décrire plusieurs caractéristiques de chaque élément comme par exemple, la position sur x et y, les dimensions, le type, etc.
 
+#### Images:
+Utilisation de Spritesheet pour le jouer, les ennemis et les monnaies, car il permet d'avoir une animation plus fluide.
 
+#### Musique:
+* Utilisation de la libraire Howler.js pour mieux gérer les diffèrent sons.
+* Le jeu contient les sons suivants:
+  * Musique de fond.
+  * Son pour collision jouer-ennemis et joueur-monnaie.
+  * Son pour sauter et pour tomber dans trou.
+  * Son pour game over et son de feu d'artifice pour niveau réussi.  
 
+#### Moteur de jeu:
+On est parti du TP et on a développé le reste sauf la gestion de spritesheet et la simulation d'explosion avec des particules (qui est utilisé comme les feux d'artifice pour le niveau réussi) qui ont été pris du cours et adapté. 
 
+## Difficultés rencontrées
+L'utilisation de Spritesheets est très avantageuse, mais on a rencontré de difficultés au moment de la détection des collisions entre le joueur et les ennemis/monnaies.
 
+## Points à améliorer
+* Les collisions entre le joueur et les ennemis.
+* Créer une meilleure architecture pour les ennemis. Utiliser le patron de conception Factory par exemple.
+* Plus de navigation dans le jeu comme bouton pour retourner à l'écran de start ou bouton pour recommencer le niveau actuel.
 
+## Idées supplémentaires
+* Faire clignote le joueur et l'ennemi quand il y a une collision pour le montrer de façon visuelle aussi et pas seulement sonore.
+* Créer des plateformes qui se bougent ou avec obstacles comme de feu par exemple.
 
-OPTIONAL:
-- quand il y a de collision player-ennemies les faire blink (autre facon de montre qu'il a eu de collision)
-- platform qui se bouge
-- obstacles dans le platform comme feu ou spikes (les deux qui soient anime)
-BUT NOT doing it:
-- faire les subclass d'ennemies et la factory
-- afficher le super monnaie final (a collecte quand les petits sont tous deja collecte, pour passer de niveaux)
-- afficher "niveau 1", "niveau 2" ou quelque chose pareil avant de commencer chaque niveau... ou on mets un champ titre dans le .json pour laisser nomme le niveau... gere "Desert Level", "Fire Level"....
-
-
-
-DONE:
-- corriger le mouvement de player
-- afficher les monnais a collecte
-- les ennemies se bouge dans un limite
-- afficher la vie de player (les coeurs de zelda)
-- player perd de vie et quand il n'a plus il meurt
-- quand player est mort afficher petit fenetre de game over et restart. Gerer le game over et restart
-- pas de collision avec le mur d'en bas, s'il tombe il meurt... il faudra mettre de platforms pour faire le sol
-- effet sonore quand player saute
-- music de fond
-- ennemies perd de vie et quand ils n'ont plus ils meurent
-- effet sonore collision player-enemies
-- effet sonore collision player-coins
-- afficher quelque chose de niveau reussi: les feux d'artifice qu'on a vu... gele l'image derriere ou pas? y que cambie de nivel
+## Auteurs
+* Andreina Wilhelm
+* Andrei Zabolotnîi
